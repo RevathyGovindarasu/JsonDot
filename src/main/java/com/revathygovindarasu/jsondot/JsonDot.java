@@ -356,12 +356,8 @@ public class JsonDot {
         
         // Handle null or empty path
         if (partialPath == null || partialPath.isEmpty()) {
-            if (jsonObject instanceof JSONObject) {
-                suggestions.addAll(((JSONObject) jsonObject).keySet());
-            } else if (jsonObject instanceof JSONArray) {
-                for (int i = 0; i < ((JSONArray) jsonObject).length(); i++) {
-                    suggestions.add("[" + i + "]");
-                }
+            if (jsonObject != null) {
+                suggestions.addAll(jsonObject.keySet());
             }
             return suggestions;
         }
