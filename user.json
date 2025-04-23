@@ -1,0 +1,14 @@
+{"user": {
+  "address": {
+    "city": "New York",
+    "street": "123 Main St"
+  },
+  "hobbies": [
+    "reading",
+    "gaming",
+    "coding"
+  ],
+  "phone": "123-456-7890",
+  "name": "John Doe",
+  "email": "john@example.com"
+}}
