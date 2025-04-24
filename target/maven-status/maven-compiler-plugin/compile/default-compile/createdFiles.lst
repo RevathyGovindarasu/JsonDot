@@ -1,8 +1,8 @@
-com/revathygovindarasu/jsondot/JsonUtils$1.class
-com/revathygovindarasu/jsondot/JsonDotExample.class
-com/revathygovindarasu/jsondot/JsonUtils$DiffType.class
-com/revathygovindarasu/jsondot/JsonUtils.class
-com/revathygovindarasu/jsondot/JsonUtils$ArrayMergeStrategy.class
-com/revathygovindarasu/jsondot/JsonDot.class
-com/revathygovindarasu/jsondot/JsonArrayDot.class
-com/revathygovindarasu/jsondot/JsonUtils$JsonDiff.class
+com/rgov/jsondot/JsonArrayDot.class
+com/rgov/jsondot/JsonUtils$ArrayMergeStrategy.class
+com/rgov/jsondot/JsonDot.class
+com/rgov/jsondot/JsonUtils.class
+com/rgov/jsondot/JsonUtils$JsonDiff.class
+com/rgov/jsondot/JsonUtils$1.class
+com/rgov/jsondot/JsonUtils$DiffType.class
+com/rgov/jsondot/JsonDotExample.class

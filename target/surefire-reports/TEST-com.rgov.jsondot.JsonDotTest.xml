@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.rgov.jsondot.JsonDotTest" time="0.396" tests="11" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="gopherProxySet" value="false"/>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="sfdc.crl.check" value="false"/>
+    <property name="sun.cpu.isalist" value=""/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/test-classes:/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/classes:/Users/rgovindarasu/.m2/repository/org/json/json/20231013/json-20231013.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar:/Users/rgovindarasu/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar:/Users/rgovindarasu/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/rgovindarasu/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="java.vm.vendor" value="Azul Systems, Inc."/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="http://www.azul.com/"/>
+    <property name="user.timezone" value="Asia/Kolkata"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="os.name" value="Mac OS X"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="IN"/>
+    <property name="sun.boot.library.path" value="/Users/rgovindarasu/blt/tools/Darwin/jdk/openjdk_11.0.21.0.102_11.69.52_x64/zulu-11.jdk/Contents/Home/lib"/>
+    <property name="sun.java.command" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250424121729786_3.jar /Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire 2025-04-24T12-17-29_678-jvmRun1 surefire-20250424121729786_1tmp surefire_0-20250424121729786_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/test-classes:/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/classes:/Users/rgovindarasu/.m2/repository/org/json/json/20231013/json-20231013.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar:/Users/rgovindarasu/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar:/Users/rgovindarasu/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/rgovindarasu/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/Users/rgovindarasu"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="jdk.module.path" value="/Users/rgovindarasu/blt/tools/Darwin/jdk/openjdk_11.0.21.0.102_11.69.52_x64/zulu-11.jdk/Contents/Home/lib/sfdc/modules"/>
+    <property name="java.security.properties" value="/Users/rgovindarasu/blt/tools/Darwin/jdk/openjdk_11.0.21.0.102_11.69.52_x64/zulu-11.jdk/Contents/Home/conf/security/sfdc.java.security"/>
+    <property name="java.version.date" value="2024-01-16"/>
+    <property name="java.home" value="/Users/rgovindarasu/blt/tools/Darwin/jdk/openjdk_11.0.21.0.102_11.69.52_x64/zulu-11.jdk/Contents/Home"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="jdk.vendor.version" value="Zulu11.69+52-SA"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250424121729786_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="11.0.21.0.102+1-LTS"/>
+    <property name="user.name" value="rgovindarasu"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="15.4"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Zulu11.69+52-SA"/>
+    <property name="localRepository" value="/Users/rgovindarasu/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="http://www.azul.com/support/"/>
+    <property name="java.io.tmpdir" value="/var/folders/d6/z80nm3lx4zq1nssk2pjh04100000gn/T/"/>
+    <property name="java.version" value="11.0.21.0.102"/>
+    <property name="user.dir" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot"/>
+    <property name="os.arch" value="x86_64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
+    <property name="sun.os.patch.level" value="unknown"/>
+    <property name="java.library.path" value="/Users/rgovindarasu/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="Azul Systems, Inc."/>
+    <property name="java.vm.version" value="11.0.21.0.102+1-LTS"/>
+    <property name="java.specification.maintenance.version" value="2"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="java.class.version" value="55.0"/>
+  </properties>
+  <testcase name="testBasicOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.19">
+    <system-out><![CDATA[
+=== Testing Basic Operations ===
+Name: John Doe
+Age: 30
+Active: true
+
+Pretty Printed JSON:
+{
+  "metadata": {
+    "author": "System",
+    "version": "1.0",
+    "timestamp": "2024-03-20T12:00:00Z"
+  },
+  "user": {
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "sms": false,
+        "email": true,
+        "push": true
+      }
+    },
+    "address": {
+      "zip": "10001",
+      "city": "New York",
+      "street": "123 Main St",
+      "coordinates": {
+        "lng": -74.006,
+        "lat": 40.7128
+      }
+    },
+    "name": "John Doe",
+    "active": true,
+    "age": 30,
+    "contacts": [
+      {
+        "type": "email",
+        "value": "john@example.com",
+        "primary": true
+      },
+      {
+        "type": "phone",
+        "value": "+1-555-123-4567",
+        "primary": false
+      }
+    ]
+  },
+  "products": [
+    {
+      "price": 999.99,
+      "name": "Laptop",
+      "inStock": true,
+      "id": 1,
+      "tags": [
+        "electronics",
+        "computers"
+      ]
+    },
+    {
+      "price": 699.99,
+      "name": "Smartphone",
+      "inStock": false,
+      "id": 2,
+      "tags": [
+        "electronics",
+        "mobile"
+      ]
+    }
+  ]
+}
+]]></system-out>
+  </testcase>
+  <testcase name="testNestedObjectAccess" classname="com.rgov.jsondot.JsonDotTest" time="0.002">
+    <system-out><![CDATA[
+=== Testing Nested Object Access ===
+City: New York
+Latitude: 40.7128
+
+Address Object:
+{
+  "zip": "10001",
+  "city": "New York",
+  "street": "123 Main St",
+  "coordinates": {
+    "lng": -74.006,
+    "lat": 40.7128
+  }
+}
+]]></system-out>
+  </testcase>
+  <testcase name="testArrayOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+    <system-out><![CDATA[
+=== Testing Array Operations ===
+Number of contacts: 2
+Primary contact: john@example.com
+
+Contacts Array:
+[
+  {
+    "type": "email",
+    "value": "john@example.com",
+    "primary": true
+  },
+  {
+    "type": "phone",
+    "value": "+1-555-123-4567",
+    "primary": false
+  }
+]
+]]></system-out>
+  </testcase>
+  <testcase name="testPathSuggestions" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+    <system-out><![CDATA[
+=== Testing Path Suggestions ===
+Suggestions for 'user.ad':
+user.address
+]]></system-out>
+  </testcase>
+  <testcase name="testWildcardQueries" classname="com.rgov.jsondot.JsonDotTest" time="0.0">
+    <system-out><![CDATA[
+=== Testing Wildcard Queries ===
+Product prices: [999.99, 699.99]
+All tags: [electronics, computers, electronics, mobile]
+]]></system-out>
+  </testcase>
+  <testcase name="testArrayFiltering" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+    <system-out><![CDATA[
+=== Testing Array Filtering ===
+In-stock products:
+[{
+  "price": 999.99,
+  "name": "Laptop",
+  "inStock": true,
+  "id": 1,
+  "tags": [
+    "electronics",
+    "computers"
+  ]
+}]
+
+Email contacts:
+[{
+  "type": "email",
+  "value": "john@example.com",
+  "primary": true
+}]
+]]></system-out>
+  </testcase>
+  <testcase name="testModifications" classname="com.rgov.jsondot.JsonDotTest" time="0.004">
+    <system-out><![CDATA[
+=== Testing Modifications ===
+After adding country:
+{
+  "zip": "10001",
+  "country": "USA",
+  "city": "New York",
+  "street": "123 Main St",
+  "coordinates": {
+    "lng": -74.006,
+    "lat": 40.7128
+  }
+}
+
+After updating age:
+{
+  "preferences": {
+    "theme": "dark",
+    "language": "en",
+    "notifications": {
+      "sms": false,
+      "email": true,
+      "push": true
+    }
+  },
+  "address": {
+    "zip": "10001",
+    "country": "USA",
+    "city": "New York",
+    "street": "123 Main St",
+    "coordinates": {
+      "lng": -74.006,
+      "lat": 40.7128
+    }
+  },
+  "name": "John Doe",
+  "active": true,
+  "age": 31,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com",
+      "primary": true
+    },
+    {
+      "type": "phone",
+      "value": "+1-555-123-4567",
+      "primary": false
+    }
+  ]
+}
+
+After removing theme:
+{
+  "language": "en",
+  "notifications": {
+    "sms": false,
+    "email": true,
+    "push": true
+  }
+}
+]]></system-out>
+  </testcase>
+  <testcase name="testXMLConversion" classname="com.rgov.jsondot.JsonDotTest" time="0.066">
+    <system-out><![CDATA[
+=== Testing XML Conversion ===
+XML Conversion:
+<LinkedHashMap><metadata><author>System</author><version>1.0</version><timestamp>2024-03-20T12:00:00Z</timestamp></metadata><user><preferences><theme>dark</theme><language>en</language><notifications><sms>false</sms><email>true</email><push>true</push></notifications></preferences><address><zip>10001</zip><city>New York</city><street>123 Main St</street><coordinates><lng>-74.006</lng><lat>40.7128</lat></coordinates></address><name>John Doe</name><active>true</active><age>30</age><contacts><type>email</type><value>john@example.com</value><primary>true</primary></contacts><contacts><type>phone</type><value>+1-555-123-4567</value><primary>false</primary></contacts></user><products><price>999.99</price><name>Laptop</name><inStock>true</inStock><id>1</id><tags>electronics</tags><tags>computers</tags></products><products><price>699.99</price><name>Smartphone</name><inStock>false</inStock><id>2</id><tags>electronics</tags><tags>mobile</tags></products></LinkedHashMap>
+
+Pretty Printed XML:
+<LinkedHashMap>
+  <metadata>
+    <author>System</author>
+    <version>1.0</version>
+    <timestamp>2024-03-20T12:00:00Z</timestamp>
+  </metadata>
+  <user>
+    <preferences>
+      <theme>dark</theme>
+      <language>en</language>
+      <notifications>
+        <sms>false</sms>
+        <email>true</email>
+        <push>true</push>
+      </notifications>
+    </preferences>
+    <address>
+      <zip>10001</zip>
+      <city>New York</city>
+      <street>123 Main St</street>
+      <coordinates>
+        <lng>-74.006</lng>
+        <lat>40.7128</lat>
+      </coordinates>
+    </address>
+    <name>John Doe</name>
+    <active>true</active>
+    <age>30</age>
+    <contacts>
+      <type>email</type>
+      <value>john@example.com</value>
+      <primary>true</primary>
+    </contacts>
+    <contacts>
+      <type>phone</type>
+      <value>+1-555-123-4567</value>
+      <primary>false</primary>
+    </contacts>
+  </user>
+  <products>
+    <price>999.99</price>
+    <name>Laptop</name>
+    <inStock>true</inStock>
+    <id>1</id>
+    <tags>electronics</tags>
+    <tags>computers</tags>
+  </products>
+  <products>
+    <price>699.99</price>
+    <name>Smartphone</name>
+    <inStock>false</inStock>
+    <id>2</id>
+    <tags>electronics</tags>
+    <tags>mobile</tags>
+  </products>
+</LinkedHashMap>
+
+]]></system-out>
+  </testcase>
+  <testcase name="testErrorHandling" classname="com.rgov.jsondot.JsonDotTest" time="0.006">
+    <system-out><![CDATA[
+=== Testing Error Handling ===
+Expected error for invalid path: Path not found: nonexistent.path
+Expected error for array index: Array index out of bounds: user.contacts[10]
+Expected error for invalid JSON: Expected a ':' after a key at 14 [character 15 line 1]
+]]></system-out>
+  </testcase>
+  <testcase name="testComprehensivePathOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.004">
+    <system-out><![CDATA[
+=== Testing Comprehensive Path Operations ===
+After adding priority to first contact:
+{
+  "type": "email",
+  "priority": "high",
+  "value": "john@example.com",
+  "primary": true
+}
+
+After adding priority to 2nd contact:
+{
+  "type": "phone",
+  "priority": "medium",
+  "value": "+1-555-123-4567",
+  "primary": false
+}
+
+After adding status to all contacts:
+{
+  "0": {
+    "type": "email",
+    "priority": "high",
+    "value": "john@example.com",
+    "primary": true,
+    "status": "active"
+  },
+  "1": {
+    "type": "phone",
+    "priority": "medium",
+    "value": "+1-555-123-4567",
+    "primary": false,
+    "status": "active"
+  }
+}
+
+After removing priority from first contact:
+{
+  "type": "email",
+  "value": "john@example.com",
+  "primary": true,
+  "status": "active"
+}
+
+After removing status from second contact:
+{
+  "0": {
+    "type": "email",
+    "value": "john@example.com",
+    "primary": true,
+    "status": "active"
+  },
+  "1": {
+    "type": "phone",
+    "priority": "medium",
+    "value": "+1-555-123-4567",
+    "primary": false
+  }
+}
+
+After removing status from all contacts:
+{
+  "0": {
+    "type": "email",
+    "value": "john@example.com",
+    "primary": true
+  },
+  "1": {
+    "type": "phone",
+    "priority": "medium",
+    "value": "+1-555-123-4567",
+    "primary": false
+  }
+}
+]]></system-out>
+  </testcase>
+  <testcase name="testMultiplePathOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.012">
+    <system-out><![CDATA[
+=== Testing Multiple Path Operations ===
+
+Before adding tags:
+{
+  "metadata": {
+    "author": "System",
+    "version": "1.0",
+    "timestamp": "2024-03-20T12:00:00Z"
+  },
+  "user": {
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "sms": false,
+        "email": true,
+        "push": true
+      }
+    },
+    "address": {
+      "zip": "10001",
+      "city": "New York",
+      "street": "123 Main St",
+      "coordinates": {
+        "lng": -74.006,
+        "lat": 40.7128
+      }
+    },
+    "name": "John Doe",
+    "active": true,
+    "age": 30,
+    "contacts": [
+      {
+        "type": "email",
+        "value": "john@example.com",
+        "primary": true
+      },
+      {
+        "type": "phone",
+        "value": "+1-555-123-4567",
+        "primary": false
+      }
+    ]
+  },
+  "products": [
+    {
+      "price": 999.99,
+      "name": "Laptop",
+      "inStock": true,
+      "id": 1,
+      "tags": [
+        "electronics",
+        "computers"
+      ]
+    },
+    {
+      "price": 699.99,
+      "name": "Smartphone",
+      "inStock": false,
+      "id": 2,
+      "tags": [
+        "electronics",
+        "mobile"
+      ]
+    }
+  ]
+}
+
+Initializing arrays...
+
+Adding user tags...
+
+Adding product tags...
+
+After adding tags:
+{
+  "metadata": {
+    "author": "System",
+    "version": "1.0",
+    "timestamp": "2024-03-20T12:00:00Z"
+  },
+  "user": {
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "sms": false,
+        "email": true,
+        "push": true
+      }
+    },
+    "address": {
+      "zip": "10001",
+      "city": "New York",
+      "street": "123 Main St",
+      "coordinates": {
+        "lng": -74.006,
+        "lat": 40.7128
+      }
+    },
+    "name": "John Doe",
+    "active": true,
+    "age": 30,
+    "contacts": [
+      {
+        "type": "email",
+        "value": "john@example.com",
+        "primary": true
+      },
+      {
+        "type": "phone",
+        "value": "+1-555-123-4567",
+        "primary": false
+      }
+    ],
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ]
+  },
+  "products": [
+    {
+      "price": 999.99,
+      "name": "Laptop",
+      "inStock": true,
+      "id": 1,
+      "tags": [
+        "tag4",
+        "tag5"
+      ]
+    },
+    {
+      "price": 699.99,
+      "name": "Smartphone",
+      "inStock": false,
+      "id": 2,
+      "tags": [
+        "tag6",
+        "tag7"
+      ]
+    }
+  ]
+}
+
+Removing tags...
+
+Removed tag from user.tags[1]: tag2
+
+Removed tag from products[0].tags[1]: tag5
+
+Final state of user.tags:
+[
+  "tag1",
+  "tag3"
+]
+
+Checking products[0].tags...
+product1Tags: ["tag4"]
+
+Checking products[1].tags...
+product2Tags: [
+  "tag6",
+  "tag7"
+]
+]]></system-out>
+  </testcase>
+</testsuite>
