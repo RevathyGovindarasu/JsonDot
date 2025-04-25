@@ -910,23 +910,14 @@ public class JsonDotTest {
         assertEquals(JsonUtils.DiffType.ADDED, emailDiff.getType());
         assertEquals("john@example.com", emailDiff.getNewValue());
 
-        // Test array differences
+        // Check array element difference
         JsonUtils.JsonDiff hobbiesDiff = differences.stream()
-            .filter(d -> d.getPath().equals("user.hobbies"))
+            .filter(d -> d.getPath().equals("user.hobbies[1]"))
             .findFirst()
             .orElse(null);
         assertNotNull(hobbiesDiff);
         assertEquals(JsonUtils.DiffType.MODIFIED, hobbiesDiff.getType());
-        
-        // Verify array contents
-        JSONArray oldHobbies = (JSONArray) hobbiesDiff.getOldValue();
-        JSONArray newHobbies = (JSONArray) hobbiesDiff.getNewValue();
-        
-        assertEquals(2, oldHobbies.length());
-        assertEquals(2, newHobbies.length());
-        assertEquals("reading", oldHobbies.getString(0));
-        assertEquals("gaming", oldHobbies.getString(1));
-        assertEquals("reading", newHobbies.getString(0));
-        assertEquals("swimming", newHobbies.getString(1));
+        assertEquals("gaming", hobbiesDiff.getOldValue());
+        assertEquals("swimming", hobbiesDiff.getNewValue());
     }
 } 
