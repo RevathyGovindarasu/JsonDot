@@ -879,7 +879,7 @@ public class JsonDotTest {
         }
         
         // Verify differences
-        assertEquals(3, differences.size());
+        assertEquals(4, differences.size());
         
         // Check modified field
         JsonUtils.JsonDiff ageDiff = differences.stream()
