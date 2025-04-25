@@ -101,7 +101,12 @@ public class JsonDot {
                         if (indexStr.equals("*")) {
                             // Handle wildcard array index
                             if (array.length() > 0) {
-                                current = array.get(0);
+                                // For wildcard, we need to handle all elements
+                                List<Object> elements = new ArrayList<>();
+                                for (int j = 0; j < array.length(); j++) {
+                                    elements.add(array.get(j));
+                                }
+                                current = elements;
                             } else {
                                 throw new JSONException("Array is empty at path: " + part);
                             }
@@ -130,12 +135,18 @@ public class JsonDot {
                     if (indexStr.equals("*")) {
                         // Handle wildcard array index
                         if (array.length() > 0) {
-                            current = array.get(0);
+                            // For wildcard, we need to handle all elements
+                            List<Object> elements = new ArrayList<>();
+                            for (int j = 0; j < array.length(); j++) {
+                                elements.add(array.get(j));
+                            }
+                            current = elements;
                         } else {
                             throw new JSONException("Array is empty at path: " + part);
                         }
                     } else {
                         int index = Integer.parseInt(indexStr);
+                        // Ensure array is large enough
                         while (array.length() <= index) {
                             array.put(new JSONObject());
                         }
@@ -144,6 +155,22 @@ public class JsonDot {
                 } else {
                     throw new JSONException("Cannot access non-array element with array notation: " + part);
                 }
+            } else if (current instanceof List) {
+                // Handle list of elements from wildcard
+                List<Object> elements = (List<Object>) current;
+                List<Object> nextElements = new ArrayList<>();
+                for (Object element : elements) {
+                    if (element instanceof JSONObject) {
+                        JSONObject obj = (JSONObject) element;
+                        if (!obj.has(part)) {
+                            obj.put(part, new JSONObject());
+                        }
+                        nextElements.add(obj.get(part));
+                    } else {
+                        throw new JSONException("Cannot traverse through non-object at path: " + part);
+                    }
+                }
+                current = nextElements;
             } else {
                 throw new JSONException("Cannot traverse through non-object/non-array at path: " + part);
             }
@@ -151,7 +178,18 @@ public class JsonDot {
         
         // Add the value at the final path
         String lastPart = parts[parts.length - 1];
-        if (current instanceof JSONObject) {
+        if (current instanceof List) {
+            // Handle list of elements from wildcard
+            List<Object> elements = (List<Object>) current;
+            for (Object element : elements) {
+                if (element instanceof JSONObject) {
+                    JSONObject obj = (JSONObject) element;
+                    obj.put(lastPart, value);
+                } else {
+                    throw new JSONException("Cannot add element to non-object at path: " + lastPart);
+                }
+            }
+        } else if (current instanceof JSONObject) {
             JSONObject obj = (JSONObject) current;
             if (lastPart.contains("[") && lastPart.endsWith("]")) {
                 // Handle array access for the last part
@@ -166,12 +204,13 @@ public class JsonDot {
                 if (arrayValue instanceof JSONArray) {
                     JSONArray array = (JSONArray) arrayValue;
                     if (indexStr.equals("*")) {
-                        // Add value to all array elements
+                        // Handle wildcard for the last part
                         for (int i = 0; i < array.length(); i++) {
                             array.put(i, value);
                         }
                     } else {
                         int index = Integer.parseInt(indexStr);
+                        // Ensure array is large enough
                         while (array.length() <= index) {
                             array.put(JSONObject.NULL);
                         }
@@ -188,12 +227,13 @@ public class JsonDot {
             if (lastPart.contains("[") && lastPart.endsWith("]")) {
                 String indexStr = lastPart.substring(lastPart.indexOf("[") + 1, lastPart.length() - 1);
                 if (indexStr.equals("*")) {
-                    // Add value to all array elements
+                    // Handle wildcard for the last part
                     for (int i = 0; i < array.length(); i++) {
                         array.put(i, value);
                     }
                 } else {
                     int index = Integer.parseInt(indexStr);
+                    // Ensure array is large enough
                     while (array.length() <= index) {
                         array.put(JSONObject.NULL);
                     }
@@ -216,33 +256,20 @@ public class JsonDot {
      * @throws JSONException if the path is invalid
      */
     public List<Object> removeElementFromAllPaths(String path) throws JSONException {
-        if (!isValidPath(path)) {
-            throw new JSONException("Invalid path format: " + path);
-        }
-        
-        String[] parts = path.split(PATH_SPLIT_REGEX);
+        List<Object> removedValues = new ArrayList<>();
+        String[] parts = path.split("\\.");
         List<Object> targetObjects = new ArrayList<>();
         targetObjects.add(jsonObject);
-        List<Object> removedValues = new ArrayList<>();
-        
-        // Navigate through the path, collecting all matching objects
+
+        // Navigate through the path
         for (int i = 0; i < parts.length - 1; i++) {
             String part = parts[i];
-            List<Object> nextLevel = new ArrayList<>();
+            List<Object> newTargets = new ArrayList<>();
             
-            for (Object current : targetObjects) {
-                if (current instanceof JSONObject) {
-                    JSONObject obj = (JSONObject) current;
-                    if (part.equals("*")) {
-                        // Handle wildcard - add all objects at this level
-                        for (String key : obj.keySet()) {
-                            Object val = obj.get(key);
-                            if (val instanceof JSONObject || val instanceof JSONArray) {
-                                nextLevel.add(val);
-                            }
-                        }
-                    } else if (part.contains("[") && part.endsWith("]")) {
-                        // Handle array access
+            for (Object target : targetObjects) {
+                if (target instanceof JSONObject) {
+                    JSONObject obj = (JSONObject) target;
+                    if (part.contains("[") && part.endsWith("]")) {
                         String arrayName = part.substring(0, part.indexOf("["));
                         String indexStr = part.substring(part.indexOf("[") + 1, part.length() - 1);
                         
@@ -251,75 +278,53 @@ public class JsonDot {
                             if (arrayValue instanceof JSONArray) {
                                 JSONArray array = (JSONArray) arrayValue;
                                 if (indexStr.equals("*")) {
-                                    // Add all array elements
+                                    // Add all array elements as new targets
                                     for (int j = 0; j < array.length(); j++) {
-                                        nextLevel.add(array.get(j));
+                                        newTargets.add(array.get(j));
                                     }
                                 } else {
                                     int index = Integer.parseInt(indexStr);
                                     if (index < array.length()) {
-                                        nextLevel.add(array.get(index));
+                                        newTargets.add(array.get(index));
                                     }
                                 }
                             }
                         }
-                    } else {
-                        // Handle regular object access
-                        if (obj.has(part)) {
-                            Object val = obj.get(part);
-                            if (val instanceof JSONObject || val instanceof JSONArray) {
-                                nextLevel.add(val);
-                            }
-                        }
+                    } else if (obj.has(part)) {
+                        newTargets.add(obj.get(part));
                     }
-                } else if (current instanceof JSONArray) {
-                    JSONArray array = (JSONArray) current;
-                    if (part.equals("*")) {
-                        // Handle wildcard - add all array elements
-                        for (int j = 0; j < array.length(); j++) {
-                            Object val = array.get(j);
-                            if (val instanceof JSONObject || val instanceof JSONArray) {
-                                nextLevel.add(val);
-                            }
-                        }
-                    } else if (part.contains("[") && part.endsWith("]")) {
-                        // Handle array access
+                } else if (target instanceof JSONArray) {
+                    JSONArray array = (JSONArray) target;
+                    if (part.contains("[") && part.endsWith("]")) {
                         String indexStr = part.substring(part.indexOf("[") + 1, part.length() - 1);
                         if (indexStr.equals("*")) {
-                            // Add all array elements
+                            // Add all array elements as new targets
                             for (int j = 0; j < array.length(); j++) {
-                                nextLevel.add(array.get(j));
+                                newTargets.add(array.get(j));
                             }
                         } else {
                             int index = Integer.parseInt(indexStr);
                             if (index < array.length()) {
-                                nextLevel.add(array.get(index));
+                                newTargets.add(array.get(index));
                             }
                         }
                     } else {
-                        // Handle regular object access
+                        // Handle regular object access for array elements
                         for (int j = 0; j < array.length(); j++) {
-                            Object val = array.get(j);
-                            if (val instanceof JSONObject) {
-                                JSONObject obj = (JSONObject) val;
+                            Object element = array.get(j);
+                            if (element instanceof JSONObject) {
+                                JSONObject obj = (JSONObject) element;
                                 if (obj.has(part)) {
-                                    Object nestedVal = obj.get(part);
-                                    if (nestedVal instanceof JSONObject || nestedVal instanceof JSONArray) {
-                                        nextLevel.add(nestedVal);
-                                    }
+                                    newTargets.add(obj.get(part));
                                 }
                             }
                         }
                     }
                 }
             }
-            
-            targetObjects = nextLevel;
-            if (targetObjects.isEmpty()) {
-                return removedValues; // No matching paths found
-            }
+            targetObjects = newTargets;
         }
-        
+
         // Remove the value from all matching objects
         String lastPart = parts[parts.length - 1];
         for (Object target : targetObjects) {
@@ -381,7 +386,7 @@ public class JsonDot {
                 }
             }
         }
-        
+
         return removedValues;
     }
 
@@ -530,65 +535,65 @@ public class JsonDot {
             }
             
             if (part.equals("*")) {
-                if (current instanceof JSONArray) {
-                    JSONArray array = (JSONArray) current;
-                    if (array.length() > 0) {
-                        current = array.get(0);
-                    } else {
-                        throw new JSONException("Path not found: " + path);
-                    }
-                } else if (current instanceof JSONObject) {
-                    JSONObject obj = (JSONObject) current;
-                    if (obj.length() > 0) {
-                        current = obj.get(obj.keys().next());
-                    } else {
-                        throw new JSONException("Path not found: " + path);
-                    }
-                } else {
-                    throw new JSONException("Path not found: " + path);
-                }
-            } else if (part.contains("[")) {
+                throw new JSONException("Wildcard '*' is not supported in getElement(). Use getArray() instead to get all elements from an array.");
+            } else if (part.contains("[") && part.endsWith("]")) {
                 // Handle array access
                 String[] arrayParts = part.split("\\[");
                 String key = arrayParts[0];
-                int index = Integer.parseInt(arrayParts[1].replace("]", ""));
+                String indexStr = arrayParts[1].replace("]", "");
                 
                 if (current instanceof JSONObject) {
                     JSONObject obj = (JSONObject) current;
                     if (!obj.has(key)) {
-                        throw new JSONException("Path not found: " + path);
+                        throw new JSONException("Array not found at path: " + key);
                     }
                     Object value = obj.get(key);
                     if (value instanceof JSONArray) {
                         JSONArray array = (JSONArray) value;
-                        if (index >= array.length()) {
-                            throw new JSONException("Array index out of bounds: " + path);
+                        if (indexStr.equals("*")) {
+                            throw new JSONException("Wildcard '*' is not supported in getElement(). Use getArray() instead to get all elements from an array.");
+                        }
+                        try {
+                            int index = Integer.parseInt(indexStr);
+                            if (index < 0 || index >= array.length()) {
+                                throw new JSONException("Array index out of bounds: " + index + " for array at path: " + key);
+                            }
+                            current = array.get(index);
+                        } catch (NumberFormatException e) {
+                            throw new JSONException("Invalid array index: " + indexStr + ". Use getArray() for wildcard access.");
+                        }
+                    } else {
+                        throw new JSONException("Expected array at path: " + key);
+                    }
+                } else if (current instanceof JSONArray) {
+                    JSONArray array = (JSONArray) current;
+                    if (indexStr.equals("*")) {
+                        throw new JSONException("Wildcard '*' is not supported in getElement(). Use getArray() instead to get all elements from an array.");
+                    }
+                    try {
+                        int index = Integer.parseInt(indexStr);
+                        if (index < 0 || index >= array.length()) {
+                            throw new JSONException("Array index out of bounds: " + index);
                         }
                         current = array.get(index);
-                    } else {
-                        throw new JSONException("Path not found: " + path);
+                    } catch (NumberFormatException e) {
+                        throw new JSONException("Invalid array index: " + indexStr + ". Use getArray() for wildcard access.");
                     }
                 } else {
-                    throw new JSONException("Path not found: " + path);
+                    throw new JSONException("Cannot access non-array element with array notation: " + part);
                 }
             } else {
                 // Handle regular object access
                 if (current instanceof JSONObject) {
                     JSONObject obj = (JSONObject) current;
                     if (!obj.has(part)) {
-                        throw new JSONException("Path not found: " + path);
+                        throw new JSONException("Key not found: " + part);
                     }
                     current = obj.get(part);
                 } else if (current instanceof JSONArray) {
-                    // Handle direct array access
-                    JSONArray array = (JSONArray) current;
-                    if (array.length() > 0) {
-                        current = array.get(0);
-                    } else {
-                        throw new JSONException("Path not found: " + path);
-                    }
+                    throw new JSONException("Cannot access array element without index. Use getArray() for array operations.");
                 } else {
-                    throw new JSONException("Path not found: " + path);
+                    throw new JSONException("Cannot traverse through non-object/non-array at path: " + part);
                 }
             }
         }
@@ -637,14 +642,14 @@ public class JsonDot {
         if (!isValidPath(path)) {
             throw new JSONException("Invalid path format: " + path);
         }
-
+        
         // Split by dots but preserve array indices
         String[] parts = path.split(PATH_SPLIT_REGEX);
         Object current = jsonObject;
         
-        for (int i = 0; i < parts.length - 1; i++) {
+        // Navigate through the path
+        for (int i = 0; i < parts.length; i++) {
             String part = parts[i];
-            
             if (current instanceof JSONObject) {
                 JSONObject obj = (JSONObject) current;
                 if (part.contains("[") && part.endsWith("]")) {
@@ -653,26 +658,51 @@ public class JsonDot {
                     String indexStr = part.substring(part.indexOf("[") + 1, part.length() - 1);
                     
                     if (!obj.has(arrayName)) {
-                        return null;
+                        throw new JSONException("Array not found at path: " + arrayName);
                     }
                     
                     Object arrayValue = obj.get(arrayName);
                     if (arrayValue instanceof JSONArray) {
                         JSONArray array = (JSONArray) arrayValue;
                         if (indexStr.equals("*")) {
-                            throw new JSONException("Cannot use wildcard in array access");
+                            // Handle wildcard array index
+                            if (array.length() > 0) {
+                                // For wildcard, we need to handle all elements
+                                List<Object> elements = new ArrayList<>();
+                                for (int j = 0; j < array.length(); j++) {
+                                    Object element = array.get(j);
+                                    if (element instanceof JSONArray) {
+                                        // If the element is an array, add all its elements
+                                        JSONArray innerArray = (JSONArray) element;
+                                        for (int k = 0; k < innerArray.length(); k++) {
+                                            elements.add(innerArray.get(k));
+                                        }
+                                    } else {
+                                        elements.add(element);
+                                    }
+                                }
+                                current = elements;
+                            } else {
+                                throw new JSONException("Array is empty at path: " + part);
+                            }
+                        } else {
+                            try {
+                                int index = Integer.parseInt(indexStr);
+                                if (index < 0 || index >= array.length()) {
+                                    throw new JSONException("Array index out of bounds: " + index);
+                                }
+                                current = array.get(index);
+                            } catch (NumberFormatException e) {
+                                throw new JSONException("Invalid array index: " + indexStr);
+                            }
                         }
-                        int index = Integer.parseInt(indexStr);
-                        if (index >= array.length()) {
-                            return null;
-                        }
-                        current = array.get(index);
                     } else {
-                        return null;
+                        throw new JSONException("Expected array at path: " + arrayName);
                     }
                 } else {
+                    // Handle regular object access
                     if (!obj.has(part)) {
-                        return null;
+                        throw new JSONException("Key not found: " + part);
                     }
                     current = obj.get(part);
                 }
@@ -681,79 +711,74 @@ public class JsonDot {
                 if (part.contains("[") && part.endsWith("]")) {
                     String indexStr = part.substring(part.indexOf("[") + 1, part.length() - 1);
                     if (indexStr.equals("*")) {
-                        throw new JSONException("Cannot use wildcard in array access");
+                        // Handle wildcard array index
+                        if (array.length() > 0) {
+                            // For wildcard, we need to handle all elements
+                            List<Object> elements = new ArrayList<>();
+                            for (int j = 0; j < array.length(); j++) {
+                                Object element = array.get(j);
+                                if (element instanceof JSONArray) {
+                                    // If the element is an array, add all its elements
+                                    JSONArray innerArray = (JSONArray) element;
+                                    for (int k = 0; k < innerArray.length(); k++) {
+                                        elements.add(innerArray.get(k));
+                                    }
+                                } else {
+                                    elements.add(element);
+                                }
+                            }
+                            current = elements;
+                        } else {
+                            throw new JSONException("Array is empty at path: " + part);
+                        }
+                    } else {
+                        try {
+                            int index = Integer.parseInt(indexStr);
+                            if (index < 0 || index >= array.length()) {
+                                throw new JSONException("Array index out of bounds: " + index);
+                            }
+                            current = array.get(index);
+                        } catch (NumberFormatException e) {
+                            throw new JSONException("Invalid array index: " + indexStr);
+                        }
                     }
-                    int index = Integer.parseInt(indexStr);
-                    if (index >= array.length()) {
-                        return null;
-                    }
-                    current = array.get(index);
                 } else {
-                    return null;
+                    throw new JSONException("Cannot access non-array element with array notation: " + part);
                 }
+            } else if (current instanceof List) {
+                // Handle list of elements from wildcard
+                List<Object> elements = (List<Object>) current;
+                List<Object> nextElements = new ArrayList<>();
+                for (Object element : elements) {
+                    if (element instanceof JSONObject) {
+                        JSONObject obj = (JSONObject) element;
+                        if (!obj.has(part)) {
+                            throw new JSONException("Key not found: " + part);
+                        }
+                        nextElements.add(obj.get(part));
+                    } else {
+                        throw new JSONException("Cannot traverse through non-object at path: " + part);
+                    }
+                }
+                current = nextElements;
             } else {
-                return null;
+                throw new JSONException("Cannot traverse through non-object/non-array at path: " + part);
             }
         }
         
-        String lastPart = parts[parts.length - 1];
-        if (current instanceof JSONObject) {
-            JSONObject obj = (JSONObject) current;
-            if (lastPart.contains("[") && lastPart.endsWith("]")) {
-                // Handle array access for the last part
-                String arrayName = lastPart.substring(0, lastPart.indexOf("["));
-                String indexStr = lastPart.substring(lastPart.indexOf("[") + 1, lastPart.length() - 1);
-                
-                if (!obj.has(arrayName)) {
-                    return null;
-                }
-                
-                Object arrayValue = obj.get(arrayName);
-                if (arrayValue instanceof JSONArray) {
-                    JSONArray array = (JSONArray) arrayValue;
-                    if (indexStr.equals("*")) {
-                        throw new JSONException("Cannot use wildcard in array access");
-                    }
-                    int index = Integer.parseInt(indexStr);
-                    if (index >= array.length()) {
-                        return null;
-                    }
-                    return new JsonArrayDot(array);
-                } else {
-                    return null;
-                }
-            } else {
-                if (!obj.has(lastPart)) {
-                    return null;
-                }
-                Object value = obj.get(lastPart);
-                if (value instanceof JSONArray) {
-                    return new JsonArrayDot((JSONArray) value);
-                }
-                return null;
+        // Check if the final result is an array
+        if (current instanceof JSONArray) {
+            return new JsonArrayDot((JSONArray) current);
+        } else if (current instanceof List) {
+            // Convert list to JSONArray
+            JSONArray resultArray = new JSONArray();
+            for (Object element : (List<?>) current) {
+                resultArray.put(element);
             }
-        } else if (current instanceof JSONArray) {
-            JSONArray array = (JSONArray) current;
-            if (lastPart.contains("[") && lastPart.endsWith("]")) {
-                String indexStr = lastPart.substring(lastPart.indexOf("[") + 1, lastPart.length() - 1);
-                if (indexStr.equals("*")) {
-                    throw new JSONException("Cannot use wildcard in array access");
-                }
-                int index = Integer.parseInt(indexStr);
-                if (index >= array.length()) {
-                    return null;
-                }
-                Object value = array.get(index);
-                if (value instanceof JSONArray) {
-                    return new JsonArrayDot((JSONArray) value);
-                }
-                return null;
-            } else {
-                return null;
-            }
+            return new JsonArrayDot(resultArray);
+        } else {
+            throw new JSONException("Expected array at path: " + path);
         }
-        
-        return null;
     }
 
     /**

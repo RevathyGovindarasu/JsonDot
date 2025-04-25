@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.rgov.jsondot.JsonUtils.ArrayMergeStrategy;
+import com.rgov.jsondot.JsonDot;
+import com.rgov.jsondot.JsonArrayDot;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -701,5 +703,134 @@ public class JsonDotTest {
             System.out.println("Caught exception: " + e.getMessage());
             assertTrue(e.getMessage().contains("Invalid path format"));
         }
+    }
+
+    @Test
+    public void testWildcardArrayAddElement() throws JSONException {
+        System.out.println("\n=== Testing Wildcard Array Add Element ===");
+        
+        // Create a test JSON with an array of objects
+        JSONObject testJson = new JSONObject();
+        JSONArray products = new JSONArray();
+        
+        // Add two product objects
+        JSONObject product1 = new JSONObject();
+        product1.put("name", "Product 1");
+        product1.put("price", 100);
+        
+        JSONObject product2 = new JSONObject();
+        product2.put("name", "Product 2");
+        product2.put("price", 200);
+        
+        products.put(product1);
+        products.put(product2);
+        testJson.put("products", products);
+        
+        JsonDot json = new JsonDot(testJson);
+        
+        // Add category to all products using wildcard
+        json.addElement("products[*].category", "Electronics");
+        
+        // Verify that both products have the category
+        JsonArrayDot productsArray = json.getArray("products");
+        assertEquals(2, productsArray.length());
+        
+        for (int i = 0; i < productsArray.length(); i++) {
+            JsonDot product = new JsonDot(productsArray.get(i).toString());
+            assertEquals("Electronics", product.getString("category"));
+        }
+        
+        System.out.println("After adding category to all products:");
+        System.out.println(json.toPrettyString());
+    }
+
+    @Test
+    public void testWildcardArrayRemoveElement() throws JSONException {
+        System.out.println("\n=== Testing Wildcard Array Remove Element ===");
+        
+        // Create a test JSON with nested arrays
+        JSONObject testJson = new JSONObject();
+        JSONArray outerArray = new JSONArray();
+        
+        // Create first inner array with elements
+        JSONArray innerArray1 = new JSONArray();
+        innerArray1.put("element1");
+        innerArray1.put("element2");
+        innerArray1.put("element3");
+        
+        // Create second inner array with elements
+        JSONArray innerArray2 = new JSONArray();
+        innerArray2.put("element4");
+        innerArray2.put("element5");
+        innerArray2.put("element6");
+        
+        // Add inner arrays to outer array
+        outerArray.put(innerArray1);
+        outerArray.put(innerArray2);
+        testJson.put("arrays", outerArray);
+        
+        JsonDot json = new JsonDot(testJson);
+        System.out.println("Original JSON:");
+        System.out.println(json.toPrettyString());
+        
+        // Remove all elements from inner arrays using wildcard
+        List<Object> removedElements = json.removeElementFromAllPaths("arrays[*]");
+        
+        // Verify that 1 element was removed (the first inner array)
+        assertEquals(1, removedElements.size());
+        
+        // Verify that the outer array now has 1 element
+        JsonArrayDot outerArrayDot = json.getArray("arrays");
+        assertEquals(1, outerArrayDot.length());
+        
+        System.out.println("\nAfter removing first inner array:");
+        System.out.println(json.toPrettyString());
+    }
+
+    @Test
+    public void testWildcardArrayGet() throws JSONException {
+        System.out.println("\n=== Testing Wildcard Array Get ===");
+        
+        // Create a test JSON with nested arrays
+        JSONObject testJson = new JSONObject();
+        JSONArray outerArray = new JSONArray();
+        
+        // Create first inner array with elements
+        JSONArray innerArray1 = new JSONArray();
+        innerArray1.put("element1");
+        innerArray1.put("element2");
+        innerArray1.put("element3");
+        
+        // Create second inner array with elements
+        JSONArray innerArray2 = new JSONArray();
+        innerArray2.put("element4");
+        innerArray2.put("element5");
+        innerArray2.put("element6");
+        
+        // Add inner arrays to outer array
+        outerArray.put(innerArray1);
+        outerArray.put(innerArray2);
+        testJson.put("arrays", outerArray);
+        
+        JsonDot json = new JsonDot(testJson);
+        System.out.println("Original JSON:");
+        System.out.println(json.toPrettyString());
+        
+        // Get all elements from inner arrays using wildcard
+        JsonArrayDot resultArray = json.getArray("arrays[*]");
+        
+        // Verify that we got all elements from both inner arrays
+        assertEquals(6, resultArray.length());
+        
+        // Verify the elements are in the correct order
+        assertEquals("element1", resultArray.get(0));
+        assertEquals("element2", resultArray.get(1));
+        assertEquals("element3", resultArray.get(2));
+        assertEquals("element4", resultArray.get(3));
+        assertEquals("element5", resultArray.get(4));
+        assertEquals("element6", resultArray.get(5));
+        
+        System.out.println("\nResult after getting all elements:");
+        System.out.println(resultArray.toPrettyString());
     }
 } 
