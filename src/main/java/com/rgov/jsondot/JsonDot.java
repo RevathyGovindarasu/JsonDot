@@ -1694,4 +1694,16 @@ public class JsonDot {
         }
         throw new JSONException("Value at path '" + path + "' is not an object");
     }
+
+    /**
+     * Compares this JsonDot object with another and returns their differences
+     * @param other The other JsonDot object to compare with
+     * @return List of differences between the two JSON objects
+     */
+    public List<JsonUtils.JsonDiff> diff(JsonDot other) {
+        if (other == null) {
+            throw new IllegalArgumentException("Cannot compare with null JsonDot object");
+        }
+        return JsonUtils.diff(this, other);
+    }
 } 

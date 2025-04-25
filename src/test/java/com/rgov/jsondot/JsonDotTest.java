@@ -833,4 +833,100 @@ public class JsonDotTest {
         System.out.println("\nResult after getting all elements:");
         System.out.println(resultArray.toPrettyString());
     }
+
+    @Test
+    public void testDiff() {
+        System.out.println("\n=== Testing JSON Diff ===");
+        
+        // Create original JSON
+        JsonDot original = new JsonDot("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": \"John\",\n" +
+            "        \"age\": 30,\n" +
+            "        \"address\": {\n" +
+            "            \"city\": \"New York\",\n" +
+            "            \"zip\": \"10001\"\n" +
+            "        },\n" +
+            "        \"hobbies\": [\"reading\", \"gaming\"]\n" +
+            "    }\n" +
+            "}");
+        
+        // Create modified JSON
+        JsonDot modified = new JsonDot("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": \"John\",\n" +
+            "        \"age\": 31,\n" +
+            "        \"address\": {\n" +
+            "            \"city\": \"Boston\",\n" +
+            "            \"zip\": \"10001\"\n" +
+            "        },\n" +
+            "        \"hobbies\": [\"reading\", \"swimming\"],\n" +
+            "        \"email\": \"john@example.com\"\n" +
+            "    }\n" +
+            "}");
+        
+        System.out.println("Original JSON:");
+        System.out.println(original.toPrettyString());
+        System.out.println("\nModified JSON:");
+        System.out.println(modified.toPrettyString());
+        
+        // Get differences
+        List<JsonUtils.JsonDiff> differences = original.diff(modified);
+        
+        System.out.println("\nDifferences found:");
+        for (JsonUtils.JsonDiff diff : differences) {
+            System.out.println(diff);
+        }
+        
+        // Verify differences
+        assertEquals(3, differences.size());
+        
+        // Check modified field
+        JsonUtils.JsonDiff ageDiff = differences.stream()
+            .filter(d -> d.getPath().equals("user.age"))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(ageDiff);
+        assertEquals(JsonUtils.DiffType.MODIFIED, ageDiff.getType());
+        assertEquals(30, ageDiff.getOldValue());
+        assertEquals(31, ageDiff.getNewValue());
+        
+        // Check modified nested field
+        JsonUtils.JsonDiff cityDiff = differences.stream()
+            .filter(d -> d.getPath().equals("user.address.city"))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(cityDiff);
+        assertEquals(JsonUtils.DiffType.MODIFIED, cityDiff.getType());
+        assertEquals("New York", cityDiff.getOldValue());
+        assertEquals("Boston", cityDiff.getNewValue());
+        
+        // Check added field
+        JsonUtils.JsonDiff emailDiff = differences.stream()
+            .filter(d -> d.getPath().equals("user.email"))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(emailDiff);
+        assertEquals(JsonUtils.DiffType.ADDED, emailDiff.getType());
+        assertEquals("john@example.com", emailDiff.getNewValue());
+
+        // Test array differences
+        JsonUtils.JsonDiff hobbiesDiff = differences.stream()
+            .filter(d -> d.getPath().equals("user.hobbies"))
+            .findFirst()
+            .orElse(null);
+        assertNotNull(hobbiesDiff);
+        assertEquals(JsonUtils.DiffType.MODIFIED, hobbiesDiff.getType());
+        
+        // Verify array contents
+        JSONArray oldHobbies = (JSONArray) hobbiesDiff.getOldValue();
+        JSONArray newHobbies = (JSONArray) hobbiesDiff.getNewValue();
+        
+        assertEquals(2, oldHobbies.length());
+        assertEquals(2, newHobbies.length());
+        assertEquals("reading", oldHobbies.getString(0));
+        assertEquals("gaming", oldHobbies.getString(1));
+        assertEquals("reading", newHobbies.getString(0));
+        assertEquals("swimming", newHobbies.getString(1));
+    }
 } 
