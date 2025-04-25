@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.json.XML;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class JsonUtils {
@@ -76,171 +78,122 @@ public class JsonUtils {
     }
 
     /**
-     * Deep merges two JSON objects
-     * @param json1 First JSON object
-     * @param json2 Second JSON object
-     * @return Deep merged JsonDot instance
-     * @throws JSONException if there's an error merging the JSON objects
+     * Deep merges two JsonDot objects
+     * @param json1 First JsonDot object (target)
+     * @param json2 Second JsonDot object (source)
+     * @return Merged JsonDot object
+     * @throws JSONException if merging fails
      */
     public static JsonDot deepMerge(JsonDot json1, JsonDot json2) throws JSONException {
-        JSONObject merged = new JSONObject(json1.toString());
-        JSONObject second = new JSONObject(json2.toString());
-        
-        for (String key : second.keySet()) {
-            if (merged.has(key)) {
-                if (merged.get(key) instanceof JSONObject && second.get(key) instanceof JSONObject) {
-                    // Recursively merge nested objects
-                    merged.put(key, deepMerge(
-                        new JsonDot(merged.getJSONObject(key)), 
-                        new JsonDot(second.getJSONObject(key))
-                    ).getJSONObject());
-                } else if (merged.get(key) instanceof JSONArray && second.get(key) instanceof JSONArray) {
-                    // Merge arrays by appending elements
-                    JSONArray array1 = merged.getJSONArray(key);
-                    JSONArray array2 = second.getJSONArray(key);
-                    for (int i = 0; i < array2.length(); i++) {
-                        array1.put(array2.get(i));
-                    }
-                } else {
-                    // For non-object, non-array values, second object takes precedence
-                    merged.put(key, second.get(key));
-                }
-            } else {
-                // Key doesn't exist in first object, add it
-                merged.put(key, second.get(key));
-            }
-        }
-        
-        return new JsonDot(merged);
+        return deepMerge(json1, json2, ArrayMergeStrategy.APPEND);
     }
 
     /**
-     * Deep merges two JSON objects with custom array merge strategy
-     * @param json1 First JSON object
-     * @param json2 Second JSON object
-     * @param arrayMergeStrategy Strategy for merging arrays (APPEND, OVERWRITE, or MERGE)
-     * @return Deep merged JsonDot instance
-     * @throws JSONException if there's an error merging the JSON objects
+     * Deep merges two JsonDot objects with a specified array merge strategy
+     * @param json1 First JsonDot object (target)
+     * @param json2 Second JsonDot object (source)
+     * @param arrayMergeStrategy Strategy to use when merging arrays
+     * @return Merged JsonDot object
+     * @throws JSONException if merging fails
      */
     public static JsonDot deepMerge(JsonDot json1, JsonDot json2, ArrayMergeStrategy arrayMergeStrategy) throws JSONException {
-        JSONObject merged = new JSONObject(json1.toString());
-        JSONObject source = new JSONObject(json2.toString());
+        if (json1 == null) return json2;
+        if (json2 == null) return json1;
         
-        for (String key : source.keySet()) {
-            Object sourceValue = source.get(key);
-            if (!merged.has(key)) {
-                merged.put(key, sourceValue);
-            } else {
-                Object targetValue = merged.get(key);
-                if (sourceValue instanceof JSONObject && targetValue instanceof JSONObject) {
-                    merged.put(key, deepMergeObjects((JSONObject) targetValue, (JSONObject) sourceValue, arrayMergeStrategy));
-                } else if (sourceValue instanceof JSONArray && targetValue instanceof JSONArray) {
-                    merged.put(key, mergeArrays((JSONArray) targetValue, (JSONArray) sourceValue, arrayMergeStrategy));
-                } else {
-                    merged.put(key, sourceValue);
-                }
-            }
-        }
-        
-        return new JsonDot(merged);
+        JSONObject merged = deepMergeObjects(json1.getJSONObject(), json2.getJSONObject(), arrayMergeStrategy);
+        return new JsonDot(merged.toString());
     }
 
-    private static JSONObject deepMergeObjects(JSONObject target, JSONObject source, ArrayMergeStrategy arrayMergeStrategy) throws JSONException {
-        JSONObject merged = new JSONObject(target.toString());
+    /**
+     * Deep merges two JSONObjects recursively
+     * @param target Target JSONObject
+     * @param source Source JSONObject
+     * @param strategy Strategy to use when merging arrays
+     * @return Merged JSONObject
+     * @throws JSONException if merging fails
+     */
+    private static JSONObject deepMergeObjects(JSONObject target, JSONObject source, ArrayMergeStrategy strategy) {
+        if (target == null) return source;
+        if (source == null) return target;
+
+        JSONObject result = new JSONObject();
         
-        for (String key : source.keySet()) {
-            Object sourceValue = source.get(key);
-            if (!merged.has(key)) {
-                merged.put(key, sourceValue);
-            } else {
-                Object targetValue = merged.get(key);
-                if (sourceValue instanceof JSONObject && targetValue instanceof JSONObject) {
-                    merged.put(key, deepMergeObjects((JSONObject) targetValue, (JSONObject) sourceValue, arrayMergeStrategy));
-                } else if (sourceValue instanceof JSONArray && targetValue instanceof JSONArray) {
-                    merged.put(key, mergeArrays((JSONArray) targetValue, (JSONArray) sourceValue, arrayMergeStrategy));
-                } else {
-                    merged.put(key, sourceValue);
-                }
-            }
+        // First copy all target fields
+        for (String key : target.keySet()) {
+            result.put(key, target.get(key));
         }
         
-        return merged;
-    }
-
-    private static JSONArray mergeArrays(JSONArray target, JSONArray source, ArrayMergeStrategy arrayMergeStrategy) throws JSONException {
-        JSONArray merged = new JSONArray();
-        
-        switch (arrayMergeStrategy) {
-            case APPEND:
-                // Append all elements from both arrays
-                for (int i = 0; i < target.length(); i++) {
-                    merged.put(target.get(i));
-                }
-                for (int i = 0; i < source.length(); i++) {
-                    merged.put(source.get(i));
-                }
-                break;
+        // Then merge source fields
+        for (String key : source.keySet()) {
+            if (!result.has(key)) {
+                // If key doesn't exist in target, just add it
+                result.put(key, source.get(key));
+            } else {
+                Object targetValue = result.get(key);
+                Object sourceValue = source.get(key);
                 
+                if (targetValue instanceof JSONObject && sourceValue instanceof JSONObject) {
+                    // For objects, always merge recursively regardless of strategy
+                    result.put(key, deepMergeObjects((JSONObject) targetValue, (JSONObject) sourceValue, strategy));
+                } else if (targetValue instanceof JSONArray && sourceValue instanceof JSONArray) {
+                    // For arrays, use the specified strategy
+                    result.put(key, mergeArrays((JSONArray) targetValue, (JSONArray) sourceValue, strategy));
+                } else {
+                    // For primitive values, use source value
+                    result.put(key, sourceValue);
+                }
+            }
+        }
+        
+        return result;
+    }
+
+    /**
+     * Merges two JSONArrays based on the specified strategy
+     * @param target Target JSONArray
+     * @param source Source JSONArray
+     * @param strategy Strategy to use when merging arrays
+     * @return Merged JSONArray
+     * @throws JSONException if merging fails
+     */
+    private static JSONArray mergeArrays(JSONArray target, JSONArray source, ArrayMergeStrategy strategy) {
+        if (target == null) return source;
+        if (source == null) return target;
+
+        JSONArray result = new JSONArray();
+        
+        switch (strategy) {
             case OVERWRITE:
-                // Use only the source array
+                // For OVERWRITE, just return a new array with source elements
                 for (int i = 0; i < source.length(); i++) {
-                    merged.put(source.get(i));
+                    result.put(source.get(i));
                 }
-                break;
+                return result;
                 
-            case MERGE:
-                // Merge arrays based on matching IDs or other unique identifiers
+            case APPEND:
+                // First add all target elements
                 for (int i = 0; i < target.length(); i++) {
-                    Object targetItem = target.get(i);
-                    boolean found = false;
-                    
-                    for (int j = 0; j < source.length(); j++) {
-                        Object sourceItem = source.get(j);
-                        if (targetItem instanceof JSONObject && sourceItem instanceof JSONObject) {
-                            JSONObject targetObj = (JSONObject) targetItem;
-                            JSONObject sourceObj = (JSONObject) sourceItem;
-                            
-                            if (targetObj.has("id") && sourceObj.has("id") && 
-                                targetObj.get("id").equals(sourceObj.get("id"))) {
-                                merged.put(deepMergeObjects(targetObj, sourceObj, arrayMergeStrategy));
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    if (!found) {
-                        merged.put(targetItem);
-                    }
+                    result.put(target.get(i));
                 }
-                
-                // Add any remaining source items that weren't merged
+                // Then add all source elements
                 for (int i = 0; i < source.length(); i++) {
-                    Object sourceItem = source.get(i);
-                    boolean found = false;
-                    
-                    for (int j = 0; j < merged.length(); j++) {
-                        Object mergedItem = merged.get(j);
-                        if (sourceItem instanceof JSONObject && mergedItem instanceof JSONObject) {
-                            JSONObject sourceObj = (JSONObject) sourceItem;
-                            JSONObject mergedObj = (JSONObject) mergedItem;
-                            
-                            if (sourceObj.has("id") && mergedObj.has("id") && 
-                                sourceObj.get("id").equals(mergedObj.get("id"))) {
-                                found = true;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    if (!found) {
-                        merged.put(sourceItem);
-                    }
+                    result.put(source.get(i));
                 }
                 break;
+                
+            default:
+                throw new IllegalArgumentException("Unknown merge strategy: " + strategy);
         }
         
-        return merged;
+        return result;
+    }
+
+    private static boolean haveMatchingKeys(JSONObject obj1, JSONObject obj2) {
+        if (obj1 == null || obj2 == null) return false;
+        for (String key : obj1.keySet()) {
+            if (obj2.has(key)) return true;
+        }
+        return false;
     }
 
     /**
@@ -308,15 +261,17 @@ public class JsonUtils {
 
     /**
      * Converts XML string to JsonDot instance
-     * @param xmlString XML string to convert
+     * @param xml String XML string to convert
      * @return JsonDot instance
-     * @throws JsonProcessingException if conversion fails
+     * @throws JSONException if conversion fails
      */
-    public static JsonDot fromXml(String xmlString) throws JsonProcessingException {
-        XmlMapper xmlMapper = new XmlMapper();
-        ObjectMapper jsonMapper = new ObjectMapper();
-        Object xmlObj = xmlMapper.readValue(xmlString, Object.class);
-        return new JsonDot(jsonMapper.writeValueAsString(xmlObj));
+    public static JsonDot fromXml(String xml) throws JSONException {
+        try {
+            JSONObject jsonObject = XML.toJSONObject(xml);
+            return new JsonDot(jsonObject);
+        } catch (JSONException e) {
+            throw new JSONException("Failed to convert XML to JSON: " + e.getMessage());
+        }
     }
 
     /**
@@ -356,12 +311,7 @@ public class JsonUtils {
         /**
          * Replace the first array with the second array
          */
-        OVERWRITE,
-        
-        /**
-         * Merge arrays by matching indices and recursively merging objects
-         */
-        MERGE
+        OVERWRITE
     }
 
     /**

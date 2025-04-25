@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.rgov.jsondot.JsonUtils.ArrayMergeStrategy;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -327,5 +329,377 @@ public class JsonDotTest {
         assertEquals(2, product2Tags.length());
         assertEquals("tag6", product2Tags.get(0));
         assertEquals("tag7", product2Tags.get(1));
+    }
+
+    @Test
+    public void testDeepMerge() {
+        System.out.println("\n=== Testing Deep Merge ===");
+        
+        // Initialize hobbies array in the target JSON
+        json.addElement("user.hobbies", new JSONArray().put("reading").put("gaming"));
+        
+        JSONObject source = new JSONObject("{\n" +
+            "    \"user\": {\n" +
+            "        \"hobbies\": [\"swimming\", \"hiking\"],\n" +
+            "        \"scores\": [90, 85, 95]\n" +
+            "    }\n" +
+            "}");
+        
+        JsonDot sourceDot = new JsonDot(source);
+        JsonDot result = JsonUtils.deepMerge(json, sourceDot, ArrayMergeStrategy.APPEND);
+        
+        // Check array merge
+        JsonArrayDot hobbies = result.getArray("user.hobbies");
+        assertEquals(4, hobbies.length());
+        List<Object> hobbiesList = hobbies.findAll(obj -> true);
+        assertTrue(hobbiesList.containsAll(java.util.Arrays.asList("reading", "gaming", "swimming", "hiking")));
+        
+        // Check new array
+        JsonArrayDot scores = result.getArray("user.scores");
+        assertEquals(3, scores.length());
+        List<Object> scoresList = scores.findAll(obj -> true);
+        assertEquals(Integer.valueOf(90), scoresList.get(0));
+        assertEquals(Integer.valueOf(85), scoresList.get(1));
+        assertEquals(Integer.valueOf(95), scoresList.get(2));
+    }
+
+    @Test
+    public void testDeepMergeWithNull() {
+        System.out.println("\n=== Testing Deep Merge With Null ===");
+        
+        JSONObject source = new JSONObject("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": null,\n" +
+            "        \"newField\": \"value\"\n" +
+            "    }\n" +
+            "}");
+        
+        System.out.println("Source JSON:");
+        System.out.println(source.toString(2));
+        
+        System.out.println("\nTarget JSON:");
+        System.out.println(json.toPrettyString());
+        
+        JsonDot sourceDot = new JsonDot(source);
+        JsonDot result = JsonUtils.deepMerge(json, sourceDot);
+        
+        System.out.println("\nMerged Result:");
+        System.out.println(result.toPrettyString());
+        
+        // Check that null values are preserved
+        System.out.println("\nChecking null values...");
+        System.out.println("user.name is null: " + result.isNull("user.name"));
+        System.out.println("user.newField: " + result.getString("user.newField"));
+        
+        assertTrue(result.isNull("user.name"));
+        assertEquals("value", result.getString("user.newField"));
+    }
+
+    @Test
+    public void testDeepMergeWithArrays() throws JSONException {
+        System.out.println("\n=== Testing Deep Merge With Arrays ===");
+        
+        // Initialize test data
+        JsonDot json1 = new JsonDot("{\"arr\": [1, 2, {\"x\": 1}]}");
+        JsonDot json2 = new JsonDot("{\"arr\": [3, null, {\"x\": 2, \"y\": 3}]}");
+        
+        System.out.println("Original JSON (json1):");
+        System.out.println(json1.toPrettyString());
+        System.out.println("\nUpdate JSON (json2):");
+        System.out.println(json2.toPrettyString());
+        
+        // Test APPEND strategy
+        System.out.println("\n1. Testing APPEND Strategy");
+        System.out.println("Expected: Combine both arrays, preserving all elements");
+        JsonDot appendMerged = JsonUtils.deepMerge(json1, json2, ArrayMergeStrategy.APPEND);
+        System.out.println("Result after APPEND:");
+        System.out.println(appendMerged.toPrettyString());
+        
+        JSONArray appendArr = appendMerged.getJSONArray("arr");
+        System.out.println("\nVerifying APPEND results:");
+        System.out.println("Array length: " + appendArr.length());
+        for (int i = 0; i < appendArr.length(); i++) {
+            System.out.println("Element " + i + ": " + appendArr.get(i));
+        }
+        
+        // Verify APPEND results
+        assertEquals(6, appendArr.length());
+        assertEquals(1, appendArr.getInt(0));
+        assertEquals(2, appendArr.getInt(1));
+        assertEquals(1, ((JSONObject)appendArr.get(2)).getInt("x"));
+        assertEquals(3, appendArr.getInt(3));
+        assertTrue(appendArr.isNull(4));
+        assertEquals(2, ((JSONObject)appendArr.get(5)).getInt("x"));
+        assertEquals(3, ((JSONObject)appendArr.get(5)).getInt("y"));
+
+        // Test OVERWRITE strategy
+        System.out.println("\n2. Testing OVERWRITE Strategy");
+        System.out.println("Expected: Replace entire array with source array");
+        JsonDot overwriteMerged = JsonUtils.deepMerge(json1, json2, ArrayMergeStrategy.OVERWRITE);
+        System.out.println("Result after OVERWRITE:");
+        System.out.println(overwriteMerged.toPrettyString());
+        
+        JSONArray overwriteArr = overwriteMerged.getJSONArray("arr");
+        System.out.println("\nVerifying OVERWRITE results:");
+        System.out.println("Array length: " + overwriteArr.length());
+        for (int i = 0; i < overwriteArr.length(); i++) {
+            System.out.println("Element " + i + ": " + overwriteArr.get(i));
+        }
+        
+        // Verify OVERWRITE results
+        assertEquals(3, overwriteArr.length());
+        assertEquals(3, overwriteArr.getInt(0));
+        assertTrue(overwriteArr.isNull(1));
+        assertEquals(2, ((JSONObject)overwriteArr.get(2)).getInt("x"));
+        assertEquals(3, ((JSONObject)overwriteArr.get(2)).getInt("y"));
+    }
+
+    @Test
+    public void testIsValidJson() {
+        // Valid JSON strings
+        assertTrue(JsonUtils.isValidJson("{}"));
+        assertTrue(JsonUtils.isValidJson("{\"key\":\"value\"}"));
+        assertTrue(JsonUtils.isValidJson("[]"));
+        assertTrue(JsonUtils.isValidJson("[1,2,3]"));
+        
+        // Invalid JSON strings
+        assertFalse(JsonUtils.isValidJson(""));
+        assertFalse(JsonUtils.isValidJson("{"));
+        assertFalse(JsonUtils.isValidJson("["));
+        assertFalse(JsonUtils.isValidJson("{\"key\":}"));
+    }
+
+    @Test
+    public void testToXml() throws JsonProcessingException {
+        JSONObject jsonObj = new JSONObject("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": \"John\",\n" +
+            "        \"age\": 30,\n" +
+            "        \"active\": true\n" +
+            "    }\n" +
+            "}");
+        
+        JsonDot jsonDot = new JsonDot(jsonObj);
+        String xml = jsonDot.toXml();
+        assertTrue(xml.contains("<user>"));
+        assertTrue(xml.contains("<name>John</name>"));
+        assertTrue(xml.contains("<age>30</age>"));
+        assertTrue(xml.contains("<active>true</active>"));
+    }
+
+    @Test
+    public void testFromXml() throws JsonProcessingException {
+        String xml = "<user>\n" +
+            "    <name>John</name>\n" +
+            "    <age>30</age>\n" +
+            "    <active>true</active>\n" +
+            "</user>";
+        
+        JsonDot jsonDot = JsonUtils.fromXml(xml);
+        assertEquals("John", jsonDot.getString("user.name"));
+        assertEquals(Integer.valueOf(30), jsonDot.getInt("user.age"));
+        assertTrue(jsonDot.getBoolean("user.active"));
+    }
+
+    @Test
+    public void testDeepMergeWithNulls() throws JSONException {
+        JsonDot json1 = new JsonDot("{\"a\": 1, \"b\": null, \"c\": {\"d\": 2}}");
+        JsonDot json2 = new JsonDot("{\"b\": 2, \"c\": null, \"e\": 3}");
+        JsonDot merged = JsonUtils.deepMerge(json1, json2, ArrayMergeStrategy.APPEND);
+        
+        assertEquals(1, merged.get("a"));
+        assertEquals(2, merged.get("b"));
+        assertTrue(merged.isNull("c"));
+        assertEquals(3, merged.get("e"));
+    }
+
+    @Test
+    public void testOverwriteStrategy() throws JSONException {
+        System.out.println("\n=== Testing OVERWRITE Strategy ===");
+        
+        // Original JSON with complete user information
+        JsonDot original = new JsonDot("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": \"John\",\n" +
+            "        \"age\": 30,\n" +
+            "        \"address\": {\n" +
+            "            \"city\": \"Los Angeles\",\n" +
+            "            \"state\": \"CA\",\n" +
+            "            \"zip\": \"90001\"\n" +
+            "        },\n" +
+            "        \"contacts\": [\n" +
+            "            {\"type\": \"email\", \"value\": \"john@example.com\"},\n" +
+            "            {\"type\": \"phone\", \"value\": \"123-456-7890\"}\n" +
+            "        ]\n" +
+            "    }\n" +
+            "}");
+        
+        System.out.println("Original JSON:");
+        System.out.println(original.toPrettyString());
+        
+        // Update JSON with partial changes
+        JsonDot updates = new JsonDot("{\n" +
+            "    \"user\": {\n" +
+            "        \"age\": 31,\n" +
+            "        \"address\": {\n" +
+            "            \"state\": \"NY\"\n" +
+            "        },\n" +
+            "        \"contacts\": [\n" +
+            "            {\"type\": \"email\", \"value\": \"john.new@example.com\"}\n" +
+            "        ]\n" +
+            "    }\n" +
+            "}");
+        
+        System.out.println("\nUpdate JSON:");
+        System.out.println(updates.toPrettyString());
+        
+        // Apply updates using OVERWRITE strategy
+        JsonDot result = JsonUtils.deepMerge(original, updates, ArrayMergeStrategy.OVERWRITE);
+        
+        System.out.println("\nResult after OVERWRITE:");
+        System.out.println(result.toPrettyString());
+        
+        // Verify that only specific paths were updated
+        assertEquals("John", result.getString("user.name"));  // Unchanged
+        assertEquals(Integer.valueOf(31), result.getInt("user.age"));  // Updated
+        
+        // Verify address updates
+        JSONObject address = result.getJSONObject("user.address");
+        assertEquals("Los Angeles", address.getString("city"));  // Unchanged
+        assertEquals("NY", address.getString("state"));          // Updated
+        assertEquals("90001", address.getString("zip"));         // Unchanged
+        
+        // Verify contacts array was completely replaced
+        JSONArray contacts = result.getJSONArray("user.contacts");
+        assertEquals(1, contacts.length());  // Only one contact now
+        JSONObject emailContact = contacts.getJSONObject(0);
+        assertEquals("email", emailContact.getString("type"));
+        assertEquals("john.new@example.com", emailContact.getString("value"));
+    }
+
+    @Test
+    public void testUpdateValues() throws JSONException {
+        System.out.println("\n=== Testing Value Updates ===");
+        
+        // Initialize a sample JSON with user information
+        JsonDot json = new JsonDot("{\n" +
+            "    \"user\": {\n" +
+            "        \"name\": \"John\",\n" +
+            "        \"age\": 30,\n" +
+            "        \"active\": true,\n" +
+            "        \"address\": {\n" +
+            "            \"city\": \"Los Angeles\",\n" +
+            "            \"state\": \"CA\",\n" +
+            "            \"zip\": \"90001\"\n" +
+            "        },\n" +
+            "        \"contacts\": [\n" +
+            "            {\"type\": \"email\", \"value\": \"john@example.com\"},\n" +
+            "            {\"type\": \"phone\", \"value\": \"123-456-7890\"}\n" +
+            "        ]\n" +
+            "    }\n" +
+            "}");
+        
+        System.out.println("Original JSON:");
+        System.out.println(json.toPrettyString());
+        
+        // 1. Update a primitive value (string)
+        System.out.println("\n1. Updating primitive value (string):");
+        json.addElement("user.name", "John Doe");
+        assertEquals("John Doe", json.getString("user.name"));
+        System.out.println("After updating name:");
+        System.out.println(json.getObject("user").toPrettyString());
+        
+        // 2. Update a primitive value (number)
+        System.out.println("\n2. Updating primitive value (number):");
+        json.addElement("user.age", 31);
+        assertEquals(Integer.valueOf(31), json.getInt("user.age"));
+        System.out.println("After updating age:");
+        System.out.println(json.getObject("user").toPrettyString());
+        
+        // 3. Update a primitive value (boolean)
+        System.out.println("\n3. Updating primitive value (boolean):");
+        json.addElement("user.active", false);
+        assertFalse(json.getBoolean("user.active"));
+        System.out.println("After updating active status:");
+        System.out.println(json.getObject("user").toPrettyString());
+        
+        // 4. Update a nested object value
+        System.out.println("\n4. Updating nested object value:");
+        json.addElement("user.address.state", "NY");
+        assertEquals("NY", json.getString("user.address.state"));
+        System.out.println("After updating state:");
+        System.out.println(json.getObject("user.address").toPrettyString());
+        
+        // 5. Update an array element by index
+        System.out.println("\n5. Updating array element by index:");
+        json.addElement("user.contacts[0].value", "john.doe@example.com");
+        assertEquals("john.doe@example.com", 
+            json.getObject("user.contacts[0]").getString("value"));
+        System.out.println("After updating first contact:");
+        System.out.println(json.getArray("user.contacts").toPrettyString());
+        
+        // 6. Update multiple nested values in one go
+        System.out.println("\n6. Updating multiple nested values:");
+        json.addElement("user.address.city", "New York");
+        json.addElement("user.address.zip", "10001");
+        assertEquals("New York", json.getString("user.address.city"));
+        assertEquals("10001", json.getString("user.address.zip"));
+        System.out.println("After updating address:");
+        System.out.println(json.getObject("user.address").toPrettyString());
+        
+        // 7. Update with null value
+        System.out.println("\n7. Updating with null value:");
+        json.addElement("user.age", null);
+        assertFalse(json.hasPath("user.age"));  // Path should be removed when set to null
+        System.out.println("After setting age to null:");
+        System.out.println(json.getObject("user").toPrettyString());
+        
+        // 8. Update non-existent path (creates new path)
+        System.out.println("\n8. Creating new path:");
+        json.addElement("user.preferences.theme", "dark");
+        assertEquals("dark", json.getString("user.preferences.theme"));
+        System.out.println("After adding new preference:");
+        System.out.println(json.getObject("user.preferences").toPrettyString());
+        
+        // Print final state
+        System.out.println("\nFinal JSON state:");
+        System.out.println(json.toPrettyString());
+    }
+
+    @Test
+    public void testUpdateWithInvalidPaths() {
+        System.out.println("\n=== Testing Invalid Path Updates ===");
+        
+        JsonDot json = new JsonDot("{\"user\": {\"name\": \"John\", \"contacts\": [{\"type\": \"email\"}]}}");
+        
+        // 1. Test updating with invalid array index
+        try {
+            System.out.println("Attempting to add element with invalid array index...");
+            json.addElement("user.contacts[invalid].type", "email");
+            System.out.println("No exception thrown!");
+        } catch (JSONException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+            assertTrue(e.getMessage().contains("Invalid path format"));
+        }
+        
+        // 2. Test updating with out of bounds array index
+        try {
+            System.out.println("\nAttempting to add element with out of bounds index...");
+            json.addElement("user.contacts[10].type", "email");
+            System.out.println("No exception thrown!");
+        } catch (JSONException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+            assertTrue(e.getMessage().contains("Array index out of bounds"));
+        }
+        
+        // 3. Test updating with malformed path
+        try {
+            System.out.println("\nAttempting to add element with malformed path...");
+            json.addElement("user..name", "John");
+            System.out.println("No exception thrown!");
+        } catch (JSONException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+            assertTrue(e.getMessage().contains("Invalid path format"));
+        }
     }
 } 

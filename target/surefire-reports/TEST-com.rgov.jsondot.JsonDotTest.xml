@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.rgov.jsondot.JsonDotTest" time="0.396" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.rgov.jsondot.JsonDotTest" time="0.486" tests="21" errors="0" skipped="0" failures="0">
   <properties>
     <property name="gopherProxySet" value="false"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -17,7 +17,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/Users/rgovindarasu/blt/tools/Darwin/jdk/openjdk_11.0.21.0.102_11.69.52_x64/zulu-11.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250424121729786_3.jar /Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire 2025-04-24T12-17-29_678-jvmRun1 surefire-20250424121729786_1tmp surefire_0-20250424121729786_2tmp"/>
+    <property name="sun.java.command" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250425091224837_3.jar /Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire 2025-04-25T09-12-24_701-jvmRun1 surefire-20250425091224837_1tmp surefire_0-20250425091224837_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/test-classes:/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/classes:/Users/rgovindarasu/.m2/repository/org/json/json/20231013/json-20231013.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar:/Users/rgovindarasu/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar:/Users/rgovindarasu/.m2/repository/junit/junit/4.13.2/junit-4.13.2.jar:/Users/rgovindarasu/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -36,12 +36,12 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="jdk.vendor.version" value="Zulu11.69+52-SA"/>
     <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250424121729786_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/surefire/surefirebooter-20250425091224837_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="11.0.21.0.102+1-LTS"/>
     <property name="user.name" value="rgovindarasu"/>
     <property name="path.separator" value=":"/>
-    <property name="os.version" value="15.4"/>
+    <property name="os.version" value="15.4.1"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
@@ -63,7 +63,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testBasicOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.19">
+  <testcase name="testBasicOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.195">
     <system-out><![CDATA[
 === Testing Basic Operations ===
 Name: John Doe
@@ -137,7 +137,7 @@ Pretty Printed JSON:
 }
 ]]></system-out>
   </testcase>
-  <testcase name="testNestedObjectAccess" classname="com.rgov.jsondot.JsonDotTest" time="0.002">
+  <testcase name="testNestedObjectAccess" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
     <system-out><![CDATA[
 === Testing Nested Object Access ===
 City: New York
@@ -155,7 +155,7 @@ Address Object:
 }
 ]]></system-out>
   </testcase>
-  <testcase name="testArrayOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+  <testcase name="testArrayOperations" classname="com.rgov.jsondot.JsonDotTest" time="0.002">
     <system-out><![CDATA[
 === Testing Array Operations ===
 Number of contacts: 2
@@ -176,21 +176,21 @@ Contacts Array:
 ]
 ]]></system-out>
   </testcase>
-  <testcase name="testPathSuggestions" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+  <testcase name="testPathSuggestions" classname="com.rgov.jsondot.JsonDotTest" time="0.0">
     <system-out><![CDATA[
 === Testing Path Suggestions ===
 Suggestions for 'user.ad':
 user.address
 ]]></system-out>
   </testcase>
-  <testcase name="testWildcardQueries" classname="com.rgov.jsondot.JsonDotTest" time="0.0">
+  <testcase name="testWildcardQueries" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
     <system-out><![CDATA[
 === Testing Wildcard Queries ===
 Product prices: [999.99, 699.99]
 All tags: [electronics, computers, electronics, mobile]
 ]]></system-out>
   </testcase>
-  <testcase name="testArrayFiltering" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+  <testcase name="testArrayFiltering" classname="com.rgov.jsondot.JsonDotTest" time="0.0">
     <system-out><![CDATA[
 === Testing Array Filtering ===
 In-stock products:
@@ -213,7 +213,7 @@ Email contacts:
 }]
 ]]></system-out>
   </testcase>
-  <testcase name="testModifications" classname="com.rgov.jsondot.JsonDotTest" time="0.004">
+  <testcase name="testModifications" classname="com.rgov.jsondot.JsonDotTest" time="0.002">
     <system-out><![CDATA[
 === Testing Modifications ===
 After adding country:
@@ -277,7 +277,7 @@ After removing theme:
 }
 ]]></system-out>
   </testcase>
-  <testcase name="testXMLConversion" classname="com.rgov.jsondot.JsonDotTest" time="0.066">
+  <testcase name="testXMLConversion" classname="com.rgov.jsondot.JsonDotTest" time="0.075">
     <system-out><![CDATA[
 === Testing XML Conversion ===
 XML Conversion:
@@ -595,6 +595,460 @@ product2Tags: [
   "tag6",
   "tag7"
 ]
+]]></system-out>
+  </testcase>
+  <testcase name="testDeepMerge" classname="com.rgov.jsondot.JsonDotTest" time="0.009">
+    <system-out><![CDATA[
+=== Testing Deep Merge ===
+]]></system-out>
+  </testcase>
+  <testcase name="testDeepMergeWithNull" classname="com.rgov.jsondot.JsonDotTest" time="0.001">
+    <system-out><![CDATA[
+=== Testing Deep Merge With Null ===
+Source JSON:
+{"user": {
+  "name": null,
+  "newField": "value"
+}}
+
+Target JSON:
+{
+  "metadata": {
+    "author": "System",
+    "version": "1.0",
+    "timestamp": "2024-03-20T12:00:00Z"
+  },
+  "user": {
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "sms": false,
+        "email": true,
+        "push": true
+      }
+    },
+    "address": {
+      "zip": "10001",
+      "city": "New York",
+      "street": "123 Main St",
+      "coordinates": {
+        "lng": -74.006,
+        "lat": 40.7128
+      }
+    },
+    "name": "John Doe",
+    "active": true,
+    "age": 30,
+    "contacts": [
+      {
+        "type": "email",
+        "value": "john@example.com",
+        "primary": true
+      },
+      {
+        "type": "phone",
+        "value": "+1-555-123-4567",
+        "primary": false
+      }
+    ]
+  },
+  "products": [
+    {
+      "price": 999.99,
+      "name": "Laptop",
+      "inStock": true,
+      "id": 1,
+      "tags": [
+        "electronics",
+        "computers"
+      ]
+    },
+    {
+      "price": 699.99,
+      "name": "Smartphone",
+      "inStock": false,
+      "id": 2,
+      "tags": [
+        "electronics",
+        "mobile"
+      ]
+    }
+  ]
+}
+
+Merged Result:
+{
+  "metadata": {
+    "author": "System",
+    "version": "1.0",
+    "timestamp": "2024-03-20T12:00:00Z"
+  },
+  "user": {
+    "preferences": {
+      "theme": "dark",
+      "language": "en",
+      "notifications": {
+        "sms": false,
+        "email": true,
+        "push": true
+      }
+    },
+    "address": {
+      "zip": "10001",
+      "city": "New York",
+      "street": "123 Main St",
+      "coordinates": {
+        "lng": -74.006,
+        "lat": 40.7128
+      }
+    },
+    "name": null,
+    "active": true,
+    "newField": "value",
+    "age": 30,
+    "contacts": [
+      {
+        "type": "email",
+        "value": "john@example.com",
+        "primary": true
+      },
+      {
+        "type": "phone",
+        "value": "+1-555-123-4567",
+        "primary": false
+      }
+    ]
+  },
+  "products": [
+    {
+      "price": 999.99,
+      "name": "Laptop",
+      "inStock": true,
+      "id": 1,
+      "tags": [
+        "electronics",
+        "computers"
+      ]
+    },
+    {
+      "price": 699.99,
+      "name": "Smartphone",
+      "inStock": false,
+      "id": 2,
+      "tags": [
+        "electronics",
+        "mobile"
+      ]
+    }
+  ]
+}
+
+Checking null values...
+user.name is null: true
+user.newField: value
+]]></system-out>
+  </testcase>
+  <testcase name="testDeepMergeWithArrays" classname="com.rgov.jsondot.JsonDotTest" time="0.005">
+    <system-out><![CDATA[
+=== Testing Deep Merge With Arrays ===
+Original JSON (json1):
+{"arr": [
+  1,
+  2,
+  {"x": 1}
+]}
+
+Update JSON (json2):
+{"arr": [
+  3,
+  null,
+  {
+    "x": 2,
+    "y": 3
+  }
+]}
+
+1. Testing APPEND Strategy
+Expected: Combine both arrays, preserving all elements
+Result after APPEND:
+{"arr": [
+  1,
+  2,
+  {"x": 1},
+  3,
+  null,
+  {
+    "x": 2,
+    "y": 3
+  }
+]}
+
+Verifying APPEND results:
+Array length: 6
+Element 0: 1
+Element 1: 2
+Element 2: {"x":1}
+Element 3: 3
+Element 4: null
+Element 5: {"x":2,"y":3}
+
+2. Testing OVERWRITE Strategy
+Expected: Replace entire array with source array
+Result after OVERWRITE:
+{"arr": [
+  3,
+  null,
+  {
+    "x": 2,
+    "y": 3
+  }
+]}
+
+Verifying OVERWRITE results:
+Array length: 3
+Element 0: 3
+Element 1: null
+Element 2: {"x":2,"y":3}
+]]></system-out>
+  </testcase>
+  <testcase name="testIsValidJson" classname="com.rgov.jsondot.JsonDotTest" time="0.003"/>
+  <testcase name="testToXml" classname="com.rgov.jsondot.JsonDotTest" time="0.005"/>
+  <testcase name="testFromXml" classname="com.rgov.jsondot.JsonDotTest" time="0.008"/>
+  <testcase name="testDeepMergeWithNulls" classname="com.rgov.jsondot.JsonDotTest" time="0.001"/>
+  <testcase name="testOverwriteStrategy" classname="com.rgov.jsondot.JsonDotTest" time="0.007">
+    <system-out><![CDATA[
+=== Testing OVERWRITE Strategy ===
+Original JSON:
+{"user": {
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "name": "John",
+  "age": 30,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}}
+
+Update JSON:
+{"user": {
+  "address": {"state": "NY"},
+  "age": 31,
+  "contacts": [{
+    "type": "email",
+    "value": "john.new@example.com"
+  }]
+}}
+
+Result after OVERWRITE:
+{"user": {
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "NY"
+  },
+  "name": "John",
+  "age": 31,
+  "contacts": [{
+    "type": "email",
+    "value": "john.new@example.com"
+  }]
+}}
+]]></system-out>
+  </testcase>
+  <testcase name="testUpdateValues" classname="com.rgov.jsondot.JsonDotTest" time="0.003">
+    <system-out><![CDATA[
+=== Testing Value Updates ===
+Original JSON:
+{"user": {
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "name": "John",
+  "active": true,
+  "age": 30,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}}
+
+1. Updating primitive value (string):
+After updating name:
+{
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "name": "John Doe",
+  "active": true,
+  "age": 30,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}
+
+2. Updating primitive value (number):
+After updating age:
+{
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "name": "John Doe",
+  "active": true,
+  "age": 31,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}
+
+3. Updating primitive value (boolean):
+After updating active status:
+{
+  "address": {
+    "zip": "90001",
+    "city": "Los Angeles",
+    "state": "CA"
+  },
+  "name": "John Doe",
+  "active": false,
+  "age": 31,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}
+
+4. Updating nested object value:
+After updating state:
+{
+  "zip": "90001",
+  "city": "Los Angeles",
+  "state": "NY"
+}
+
+5. Updating array element by index:
+After updating first contact:
+[
+  {
+    "type": "email",
+    "value": "john.doe@example.com"
+  },
+  {
+    "type": "phone",
+    "value": "123-456-7890"
+  }
+]
+
+6. Updating multiple nested values:
+After updating address:
+{
+  "zip": "10001",
+  "city": "New York",
+  "state": "NY"
+}
+
+7. Updating with null value:
+After setting age to null:
+{
+  "address": {
+    "zip": "10001",
+    "city": "New York",
+    "state": "NY"
+  },
+  "name": "John Doe",
+  "active": false,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john.doe@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}
+
+8. Creating new path:
+After adding new preference:
+{"theme": "dark"}
+
+Final JSON state:
+{"user": {
+  "preferences": {"theme": "dark"},
+  "address": {
+    "zip": "10001",
+    "city": "New York",
+    "state": "NY"
+  },
+  "name": "John Doe",
+  "active": false,
+  "contacts": [
+    {
+      "type": "email",
+      "value": "john.doe@example.com"
+    },
+    {
+      "type": "phone",
+      "value": "123-456-7890"
+    }
+  ]
+}}
+]]></system-out>
+  </testcase>
+  <testcase name="testUpdateWithInvalidPaths" classname="com.rgov.jsondot.JsonDotTest" time="0.02">
+    <system-out><![CDATA[
+=== Testing Invalid Path Updates ===
+Attempting to add element with invalid array index...
+Caught exception: Invalid path format: user.contacts[invalid].type
+
+Attempting to add element with out of bounds index...
+No exception thrown!
+
+Attempting to add element with malformed path...
+Caught exception: Invalid path format: user..name
 ]]></system-out>
   </testcase>
 </testsuite>

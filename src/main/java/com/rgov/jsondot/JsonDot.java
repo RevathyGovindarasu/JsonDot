@@ -1620,4 +1620,53 @@ public class JsonDot {
 
         return this;
     }
+
+    /**
+     * Gets a value from the JSON object using dot notation
+     * @param path Dot notation path to the value
+     * @return The value at the specified path
+     * @throws JSONException if the path is invalid or the value doesn't exist
+     */
+    public Object get(String path) throws JSONException {
+        return getElement(path);
+    }
+
+    /**
+     * Checks if a value at the specified path is null
+     * @param path Dot notation path to check
+     * @return true if the value is null, false otherwise
+     * @throws JSONException if the path is invalid
+     */
+    public boolean isNull(String path) throws JSONException {
+        Object value = getElement(path);
+        return value == null || value == JSONObject.NULL;
+    }
+
+    /**
+     * Gets a JSONArray from the JSON object using dot notation
+     * @param path Dot notation path to the array
+     * @return The JSONArray at the specified path
+     * @throws JSONException if the path is invalid or the value is not an array
+     */
+    public JSONArray getJSONArray(String path) throws JSONException {
+        Object value = getElement(path);
+        if (value instanceof JSONArray) {
+            return (JSONArray) value;
+        }
+        throw new JSONException("Value at path '" + path + "' is not an array");
+    }
+
+    /**
+     * Gets a JSONObject from the JSON object using dot notation
+     * @param path Dot notation path to the object
+     * @return The JSONObject at the specified path
+     * @throws JSONException if the path is invalid or the value is not an object
+     */
+    public JSONObject getJSONObject(String path) throws JSONException {
+        Object value = getElement(path);
+        if (value instanceof JSONObject) {
+            return (JSONObject) value;
+        }
+        throw new JSONException("Value at path '" + path + "' is not an object");
+    }
 } 
