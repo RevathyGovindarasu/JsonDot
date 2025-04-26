@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="org.coderscamp.jsondot.JsonDotTest" time="0.399" tests="25" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="tech.coderscamp.jsondot.JsonDotTest" time="0.399" tests="25" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,29 +58,29 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testArrayFiltering" classname="org.coderscamp.jsondot.JsonDotTest" time="0.156"/>
-  <testcase name="testModifications" classname="org.coderscamp.jsondot.JsonDotTest" time="0.003"/>
-  <testcase name="testXMLConversion" classname="org.coderscamp.jsondot.JsonDotTest" time="0.072"/>
-  <testcase name="testErrorHandling" classname="org.coderscamp.jsondot.JsonDotTest" time="0.018"/>
-  <testcase name="testIsValidJson" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testUpdateValues" classname="org.coderscamp.jsondot.JsonDotTest" time="0.016"/>
-  <testcase name="testFromXml" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testDeepMerge" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testPathSuggestions" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testOverwriteStrategy" classname="org.coderscamp.jsondot.JsonDotTest" time="0.009"/>
-  <testcase name="testWildcardArrayGet" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testArrayOperations" classname="org.coderscamp.jsondot.JsonDotTest" time="0.008"/>
-  <testcase name="testNestedObjectAccess" classname="org.coderscamp.jsondot.JsonDotTest" time="0.002"/>
-  <testcase name="testWildcardQueries" classname="org.coderscamp.jsondot.JsonDotTest" time="0.001"/>
-  <testcase name="testDeepMergeWithNulls" classname="org.coderscamp.jsondot.JsonDotTest" time="0.002"/>
-  <testcase name="testDeepMergeWithNull" classname="org.coderscamp.jsondot.JsonDotTest" time="0.012"/>
-  <testcase name="testBasicOperations" classname="org.coderscamp.jsondot.JsonDotTest" time="0.003"/>
-  <testcase name="testDeepMergeWithArrays" classname="org.coderscamp.jsondot.JsonDotTest" time="0.003"/>
-  <testcase name="testUpdateWithInvalidPaths" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testMultiplePathOperations" classname="org.coderscamp.jsondot.JsonDotTest" time="0.013"/>
-  <testcase name="testWildcardArrayAddElement" classname="org.coderscamp.jsondot.JsonDotTest" time="0.001"/>
-  <testcase name="testWildcardArrayRemoveElement" classname="org.coderscamp.jsondot.JsonDotTest" time="0.001"/>
-  <testcase name="testComprehensivePathOperations" classname="org.coderscamp.jsondot.JsonDotTest" time="0.009"/>
-  <testcase name="testToXml" classname="org.coderscamp.jsondot.JsonDotTest" time="0"/>
-  <testcase name="testDiff" classname="org.coderscamp.jsondot.JsonDotTest" time="0.005"/>
+  <testcase name="testArrayFiltering" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.156"/>
+  <testcase name="testModifications" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.003"/>
+  <testcase name="testXMLConversion" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.072"/>
+  <testcase name="testErrorHandling" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.018"/>
+  <testcase name="testIsValidJson" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testUpdateValues" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.016"/>
+  <testcase name="testFromXml" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testDeepMerge" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testPathSuggestions" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testOverwriteStrategy" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.009"/>
+  <testcase name="testWildcardArrayGet" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testArrayOperations" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.008"/>
+  <testcase name="testNestedObjectAccess" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.002"/>
+  <testcase name="testWildcardQueries" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.001"/>
+  <testcase name="testDeepMergeWithNulls" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.002"/>
+  <testcase name="testDeepMergeWithNull" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.012"/>
+  <testcase name="testBasicOperations" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.003"/>
+  <testcase name="testDeepMergeWithArrays" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.003"/>
+  <testcase name="testUpdateWithInvalidPaths" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testMultiplePathOperations" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.013"/>
+  <testcase name="testWildcardArrayAddElement" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.001"/>
+  <testcase name="testWildcardArrayRemoveElement" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.001"/>
+  <testcase name="testComprehensivePathOperations" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.009"/>
+  <testcase name="testToXml" classname="tech.coderscamp.jsondot.JsonDotTest" time="0"/>
+  <testcase name="testDiff" classname="tech.coderscamp.jsondot.JsonDotTest" time="0.005"/>
 </testsuite>

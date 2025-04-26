@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: org.coderscamp.jsondot.JsonDotTest
+Test set: tech.coderscamp.jsondot.JsonDotTest
 -------------------------------------------------------------------------------
-Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.399 s - in org.coderscamp.jsondot.JsonDotTest
+Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.399 s - in tech.coderscamp.jsondot.JsonDotTest
