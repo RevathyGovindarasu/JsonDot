@@ -1,7 +1,7 @@
-org\coderscamp\jsondot\JsonArrayDot.class
-org\coderscamp\jsondot\JsonUtils$DiffType.class
-org\coderscamp\jsondot\JsonUtils$ArrayMergeStrategy.class
-org\coderscamp\jsondot\JsonUtils$JsonDiff.class
-org\coderscamp\jsondot\JsonDotExample.class
-org\coderscamp\jsondot\JsonDot.class
-org\coderscamp\jsondot\JsonUtils.class
+tech\coderscamp\jsondot\JsonUtils$ArrayMergeStrategy.class
+tech\coderscamp\jsondot\JsonUtils$DiffType.class
+tech\coderscamp\jsondot\JsonUtils$JsonDiff.class
+tech\coderscamp\jsondot\JsonDot.class
+tech\coderscamp\jsondot\JsonDotExample.class
+tech\coderscamp\jsondot\JsonUtils.class
+tech\coderscamp\jsondot\JsonArrayDot.class
