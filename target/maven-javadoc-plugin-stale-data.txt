@@ -27,11 +27,11 @@
 -version
 -windowtitle
 'JsonDot 1.0-SNAPSHOT API'
-org.coderscamp.jsondot
-'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonArrayDot.java'
-'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonDot.java'
-'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonDotExample.java'
-'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonUtils.java'
+tech.coderscamp.jsondot
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/tech/coderscamp/jsondot/JsonArrayDot.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/tech/coderscamp/jsondot/JsonDot.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/tech/coderscamp/jsondot/JsonDotExample.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/tech/coderscamp/jsondot/JsonUtils.java'
 C:\Users\revat\.m2\repository\org\json\json\20231013\json-20231013.jar = 1745378502872
 C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.2\jackson-databind-2.15.2.jar = 1745389229286
 C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.2\jackson-annotations-2.15.2.jar = 1745389229149
@@ -39,24 +39,25 @@ C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jac
 C:\Users\revat\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-xml\2.15.2\jackson-dataformat-xml-2.15.2.jar = 1745389229074
 C:\Users\revat\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar = 1745389229120
 C:\Users\revat\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.5.1\woodstox-core-6.5.1.jar = 1745389229286
-C:\Users\revat\MyProjects\JsonDot\src\main\java = 1745634638453
-C:\Users\revat\MyProjects\JsonDot\target\generated-sources\annotations = 1745634970512
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\allclasses-index.html = 1745634981828
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\allpackages-index.html = 1745634981835
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\copy.svg = 1745634981925
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\element-list = 1745634981666
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\help-doc.html = 1745634981916
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\index-all.html = 1745634981891
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\index.html = 1745634981900
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\link.svg = 1745634981927
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\member-search-index.js = 1745634981844
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\module-search-index.js = 1745634981838
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\overview-tree.html = 1745634981791
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\package-search-index.js = 1745634981840
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\script.js = 1745634981923
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\search-page.js = 1745634981935
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.html = 1745634981896
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.js = 1745634981932
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\stylesheet.css = 1745634981920
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\tag-search-index.js = 1745634981852
-C:\Users\revat\MyProjects\JsonDot\target\apidocs\type-search-index.js = 1745634981842
+C:\Users\revat\MyProjects\JsonDot\src\main\java = 1745668417323
+C:\Users\revat\MyProjects\JsonDot\target\generated-sources\annotations = 1745668445708
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\allclasses-index.html = 1745668454357
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\allpackages-index.html = 1745668454357
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\copy.svg = 1745668454469
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\element-list = 1745668454096
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\help-doc.html = 1745668454452
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\index-all.html = 1745668454421
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\index.html = 1745668454301
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\link.svg = 1745668454469
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\member-search-index.js = 1745668454374
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\module-search-index.js = 1745668454374
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\overview-summary.html = 1745668454437
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\overview-tree.html = 1745668454297
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\package-search-index.js = 1745668454374
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\script.js = 1745668454462
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search-page.js = 1745668454469
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.html = 1745668454437
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.js = 1745668454469
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\stylesheet.css = 1745668454461
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\tag-search-index.js = 1745668454374
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\type-search-index.js = 1745668454374

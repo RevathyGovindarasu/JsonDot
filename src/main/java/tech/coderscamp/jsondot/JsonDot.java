@@ -1,4 +1,4 @@
-package org.coderscamp.jsondot;
+package tech.coderscamp.jsondot;
 
 import org.json.JSONObject;
 import org.json.JSONArray;

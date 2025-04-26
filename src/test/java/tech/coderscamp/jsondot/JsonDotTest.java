@@ -1,17 +1,18 @@
-package org.coderscamp.jsondot;
+package tech.coderscamp.jsondot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.coderscamp.jsondot.JsonArrayDot;
-import org.coderscamp.jsondot.JsonDot;
-import org.coderscamp.jsondot.JsonUtils;
-import org.coderscamp.jsondot.JsonUtils.ArrayMergeStrategy;
 import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import tech.coderscamp.jsondot.JsonArrayDot;
+import tech.coderscamp.jsondot.JsonDot;
+import tech.coderscamp.jsondot.JsonUtils;
+import tech.coderscamp.jsondot.JsonUtils.ArrayMergeStrategy;
 
 import java.io.IOException;
 import java.nio.file.Files;
