@@ -6,12 +6,12 @@
 
     <groupId>tech.coderscamp.jsondot</groupId>
     <artifactId>jsondot</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>JsonDot</name>
     <description>A powerful Java library for JSON manipulation with dot notation</description>
-    <url>https://github.com/rgov/jsondot</url>
+    <url>https://github.com/coderscamp/jsondot</url>
 
     <licenses>
         <license>
@@ -137,4 +137,11 @@
         <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
     </snapshotRepository>
 </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
 </project> 
