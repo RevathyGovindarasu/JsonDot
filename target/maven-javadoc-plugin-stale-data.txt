@@ -1,58 +1,62 @@
 @options
 @packages
+@argfile
 -classpath
-'/Users/rgovindarasu/.m2/repository/org/json/json/20231013/json-20231013.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar:/Users/rgovindarasu/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar:/Users/rgovindarasu/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar'
+'C:/Users/revat/.m2/repository/org/json/json/20231013/json-20231013.jar;C:/Users/revat/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar;C:/Users/revat/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar;C:/Users/revat/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar;C:/Users/revat/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar;C:/Users/revat/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar;C:/Users/revat/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar'
 -encoding
 'UTF-8'
 -protected
 -source
 '11'
 -sourcepath
-'/Users/rgovindarasu/Desktop/jsondot/JsonDot/src/main/java:/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/generated-sources/annotations'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java;C:/Users/revat/MyProjects/JsonDot/target/generated-sources/annotations'
 -author
 -bottom
 'Copyright &#169; 2025. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs'
+'C:/Users/revat/MyProjects/JsonDot/target/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
 'JsonDot 1.0-SNAPSHOT API'
 -linkoffline
-'https://docs.oracle.com/en/java/javase/11/docs/api' '/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/javadoc-bundle-options'
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/revat/MyProjects/JsonDot/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
 'JsonDot 1.0-SNAPSHOT API'
-com.rgov.jsondot
-/Users/rgovindarasu/.m2/repository/org/json/json/20231013/json-20231013.jar = 1702148812000
-/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar = 1714002430000
-/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar = 1714002770000
-/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar = 1714002484000
-/Users/rgovindarasu/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar = 1713215873000
-/Users/rgovindarasu/.m2/repository/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar = 1702147669000
-/Users/rgovindarasu/.m2/repository/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar = 1702113759000
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/src/main/java = 1745476656541
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/generated-sources/annotations = 1745577932772
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/constant-values.html = 1745577944583
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/member-search-index.zip = 1745577944747
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/overview-tree.html = 1745577944674
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/index.html = 1745577944769
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/package-search-index.js = 1745577944743
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/jquery-ui.overrides.css = 1745577944784
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/package-search-index.zip = 1745577944746
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/type-search-index.zip = 1745577944746
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/index-all.html = 1745577944749
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/allpackages-index.html = 1745577944762
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/deprecated-list.html = 1745577944766
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/member-search-index.js = 1745577944747
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/allclasses.html = 1745577944768
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/script.js = 1745577944774
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/stylesheet.css = 1745577944773
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/help-doc.html = 1745577944771
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/element-list = 1745577944549
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/allclasses-index.html = 1745577944758
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/type-search-index.js = 1745577944746
-/Users/rgovindarasu/Desktop/jsondot/JsonDot/target/apidocs/search.js = 1745577944774
+org.coderscamp.jsondot
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonArrayDot.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonDot.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonDotExample.java'
+'C:/Users/revat/MyProjects/JsonDot/src/main/java/org/coderscamp/jsondot/JsonUtils.java'
+C:\Users\revat\.m2\repository\org\json\json\20231013\json-20231013.jar = 1745378502872
+C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.15.2\jackson-databind-2.15.2.jar = 1745389229286
+C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.15.2\jackson-annotations-2.15.2.jar = 1745389229149
+C:\Users\revat\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.15.2\jackson-core-2.15.2.jar = 1745389229213
+C:\Users\revat\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-xml\2.15.2\jackson-dataformat-xml-2.15.2.jar = 1745389229074
+C:\Users\revat\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar = 1745389229120
+C:\Users\revat\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.5.1\woodstox-core-6.5.1.jar = 1745389229286
+C:\Users\revat\MyProjects\JsonDot\src\main\java = 1745634638453
+C:\Users\revat\MyProjects\JsonDot\target\generated-sources\annotations = 1745634970512
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\allclasses-index.html = 1745634981828
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\allpackages-index.html = 1745634981835
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\copy.svg = 1745634981925
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\element-list = 1745634981666
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\help-doc.html = 1745634981916
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\index-all.html = 1745634981891
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\index.html = 1745634981900
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\link.svg = 1745634981927
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\member-search-index.js = 1745634981844
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\module-search-index.js = 1745634981838
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\overview-tree.html = 1745634981791
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\package-search-index.js = 1745634981840
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\script.js = 1745634981923
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search-page.js = 1745634981935
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.html = 1745634981896
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\search.js = 1745634981932
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\stylesheet.css = 1745634981920
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\tag-search-index.js = 1745634981852
+C:\Users\revat\MyProjects\JsonDot\target\apidocs\type-search-index.js = 1745634981842

@@ -1,8 +1,7 @@
-com/rgov/jsondot/JsonArrayDot.class
-com/rgov/jsondot/JsonUtils$ArrayMergeStrategy.class
-com/rgov/jsondot/JsonDot.class
-com/rgov/jsondot/JsonUtils.class
-com/rgov/jsondot/JsonUtils$JsonDiff.class
-com/rgov/jsondot/JsonUtils$1.class
-com/rgov/jsondot/JsonUtils$DiffType.class
-com/rgov/jsondot/JsonDotExample.class
+org\coderscamp\jsondot\JsonArrayDot.class
+org\coderscamp\jsondot\JsonUtils$DiffType.class
+org\coderscamp\jsondot\JsonUtils$ArrayMergeStrategy.class
+org\coderscamp\jsondot\JsonUtils$JsonDiff.class
+org\coderscamp\jsondot\JsonDotExample.class
+org\coderscamp\jsondot\JsonDot.class
+org\coderscamp\jsondot\JsonUtils.class
