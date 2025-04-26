@@ -1,11 +1,11 @@
 # JsonDot
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.revathygovindarasu/jsondot.svg)](https://search.maven.org/artifact/com.revathygovindarasu/jsondot)
+[![Maven Central](https://img.shields.io/maven-central/v/org.coderscamp/jsondot.svg)](https://search.maven.org/artifact/org.coderscamp/jsondot)
 [![Java Version](https://img.shields.io/badge/java-11-blue.svg)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/revathygovindarasu/jsondot/build.yml?branch=main)](https://github.com/revathygovindarasu/jsondot/actions)
-[![Code Coverage](https://img.shields.io/codecov/c/github/revathygovindarasu/jsondot)](https://codecov.io/gh/revathygovindarasu/jsondot)
-[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen)](https://revathygovindarasu.github.io/jsondot/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/coderscamp/jsondot/build.yml?branch=main)](https://github.com/coderscamp/jsondot/actions)
+[![Code Coverage](https://img.shields.io/codecov/c/github/coderscamp/jsondot)](https://codecov.io/gh/coderscamp/jsondot)
+[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen)](https://coderscamp.github.io/jsondot/)
 
 **JsonDot** is a powerful Java library for JSON manipulation with dot notation.
 
@@ -25,7 +25,7 @@ Add the dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>com.rgov.jsondot</groupId>
+    <groupId>org.coderscamp.jsondot</groupId>
     <artifactId>jsondot</artifactId>
     <version>1.0.0</version>
 </dependency>
