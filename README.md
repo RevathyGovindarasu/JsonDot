@@ -1,6 +1,6 @@
 # JsonDot
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.coderscamp/jsondot.svg)](https://search.maven.org/artifact/org.coderscamp/jsondot)
+[![Maven Central](https://img.shields.io/maven-central/v/tech.coderscamp/jsondot.svg)](https://search.maven.org/artifact/tech.coderscamp/jsondot)
 [![Java Version](https://img.shields.io/badge/java-11-blue.svg)](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/coderscamp/jsondot/build.yml?branch=main)](https://github.com/coderscamp/jsondot/actions)
@@ -25,7 +25,7 @@ Add the dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>org.coderscamp.jsondot</groupId>
+    <groupId>tech.coderscamp.jsondot</groupId>
     <artifactId>jsondot</artifactId>
     <version>1.0.0</version>
 </dependency>
